@@ -15,6 +15,18 @@ does not show.
 
 Until this folder has photos, the pages show grey stand-in frames.
 
+## a page for each photo
+
+A click on any photo opens its own page (`photo.html?p=<file name>`) with four lines: date, location, camera and film.
+Those come from `photos/details.json`. An entry is named for a set of photos (the file name without its number, for
+example `2026-10-20-tokyo-on-film`), and covers every photo in that set. To give one photo its own details, add an
+entry named for that exact file (for example `2026-10-20-tokyo-on-film-08.webp`); what it says wins over the set.
+
+    "2026-10-20-tokyo-on-film": {"date": "2026.10.20", "location": "tokyo", "camera": "", "film": ""}
+
+Anything left empty shows as a dash. `tools/photos.py` adds an entry for each new set, with the date from the file
+name, and never changes what is already written.
+
 ## people
 
 people appear only in candid or unposed photographs. no posed portraits: nobody looking into the lens, arranged for the picture. if a photo is unclear, leave it out and ask.

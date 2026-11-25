@@ -7,7 +7,9 @@ Run from the repo folder after adding photographs to photos/:
 
 Each .jpg, .jpeg or .png in photos/ gets a WebP copy (at most 1600 pixels on the long side) next to it,
 the original moves to photos/originals/, and photos.json is written with every WebP in photos/, sorted
-by name. Needs Pillow (python3 -m pip install pillow). Running it again changes nothing that is done.
+by name. photos/details.json (the date, location, camera and film shown on a photo's own page) gets an
+entry for every new set of photos, with the date read from the file name and the rest left empty to fill in;
+nothing already written there is changed. Needs Pillow (python3 -m pip install pillow). Running it again changes nothing that is done.
 
     python3 tools/photos.py --rebuild
 
@@ -15,6 +17,7 @@ makes every WebP copy again from photos/originals/, for when the size or quality
 """
 import json
 import pathlib
+import re
 import sys
 
 from PIL import Image, ImageOps
@@ -56,6 +59,20 @@ def main() -> int:
     names = sorted(p.name for p in PHOTOS.glob('*.webp'))
     (ROOT / 'photos.json').write_text(json.dumps(names, indent=1) + '\n')
     print(f'photos.json: {len(names)} photos')
+    # details.json: one entry per set (the file name without its number), for the photo pages
+    path = PHOTOS / 'details.json'
+    details = json.loads(path.read_text()) if path.exists() else {}
+    added = 0
+    for name in names:
+        key = re.sub(r'[-_]\d+$', '', pathlib.Path(name).stem)
+        if key in details or name in details:
+            continue
+        m = re.match(r'(\d{4})[-_.]?(\d{2})[-_.]?(\d{2})', key)
+        details[key] = {'date': '.'.join(m.groups()) if m else '', 'location': '', 'camera': '', 'film': ''}
+        added += 1
+    if added:
+        path.write_text('{\n' + ',\n'.join(f' {json.dumps(k)}: {json.dumps(v)}' for k, v in details.items()) + '\n}\n')
+    print(f'details.json: {len(details)} entries, {added} added')
     return 0
 
 
