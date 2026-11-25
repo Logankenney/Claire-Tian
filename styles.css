@@ -62,12 +62,8 @@ figure:nth-of-type(3n) { margin-bottom: 5vh; }
 /* mouse over a photo: it fades to its original colour, and fades back to black and white when the mouse leaves.
    the whole tile counts, the photo and the caption row under it, so the colour holds until the mouse is off the tile.
    only where there is a real pointer, so a tap on a phone does not leave a photo stuck in colour */
-<<<<<<< HEAD
-@media (hover: hover) { .frame:hover img { filter: grayscale(0) contrast(1); } }
-a.frame { display: block; cursor: pointer; }   /* a photo is a link to its own page */
-=======
 @media (hover: hover) { figure:hover .frame img, .frame:hover img { filter: grayscale(0) contrast(1); } }
->>>>>>> main
+a.frame { display: block; cursor: pointer; }   /* a photo is a link to its own page */
 /* every frame is portrait, 2 by 3. a real photo fills it; a landscape one is cropped to the middle. */
 .frame.fit { background: none; }
 .frame.fit::after { content: none; }
