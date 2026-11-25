@@ -82,6 +82,16 @@ figcaption { padding-top: 6px; font-size: 9px; color: var(--muted); display: fle
 .sheet a.go:hover { text-decoration: none; border-bottom-color: transparent; }
 /* recent shots: the same sideways strip as work, with dates */
 .note { font-size: 9px; }
+/* recent shots: laid out like home (frames level, centred top to bottom, copy under the menu), but the strip still scrolls sideways */
+.reel.recent { align-items: center; gap: 2.5vw; }
+.recent figure:nth-of-type(n) { margin-bottom: 0; }
+.recent .frame { height: min(78vh, calc(100vh - 80px)); }
+.recent .lead + .lead { margin-top: 14px; }      /* each line of copy is its own box */
+.recent .intro .lead { margin-bottom: 0; }
+.recent .intro .lead:last-of-type { margin-bottom: 14px; }
+@media (min-width: 721px) {
+  .recent .intro { position: fixed; left: 20px; bottom: 80px; width: calc(var(--side) - 40px); padding: 0; }
+}
 
 /* contact: one prompt, one text box */
 form { display: grid; gap: 8px; margin-top: 24px; }
@@ -112,6 +122,7 @@ button.send:hover { border-bottom-color: transparent; }
   .intro.bare { flex-basis: 30vw; }
   .frame { height: 50vh; }
   figure:nth-of-type(even) { margin-bottom: 9vh; }
+  .recent .frame { height: 58vh; }
   .sheet { position: static; flex: 1; min-height: 0; padding: 50px 18px 18px 22vw; }
   .sheet h2 { margin-bottom: 18px; }
 }
