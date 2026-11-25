@@ -63,7 +63,7 @@ figure:nth-of-type(3n) { margin-bottom: 5vh; }
    the whole tile counts, the photo and the caption row under it, so the colour holds until the mouse is off the tile.
    only where there is a real pointer, so a tap on a phone does not leave a photo stuck in colour */
 @media (hover: hover) { figure:hover .frame img, .frame:hover img { filter: grayscale(0) contrast(1); } }
-a.frame { display: block; cursor: pointer; }   /* a photo is a link to its own page */
+a.frame { display: block; cursor: pointer; }   /* on photo dump a photo is a link to its own page */
 /* every frame is portrait, 2 by 3. a real photo fills it; a landscape one is cropped to the middle. */
 .frame.fit { background: none; }
 .frame.fit::after { content: none; }
@@ -114,6 +114,7 @@ button.send:hover { border-bottom-color: transparent; }
 .single { display: flex; }
 .single[hidden] { display: none; }
 .single .frame { height: var(--one-h); width: auto; }
+.single .frame img { filter: none; }   /* on its own page a photo shows in its original colour, always */
 .close { position: fixed; top: 24px; right: 24px; color: var(--muted); z-index: 4; }
 .close:hover { color: var(--ink); }
 .facts { margin: 0; }

@@ -37,11 +37,12 @@ async function photoList() {
 const describe = name => name.replace(/\.[^.]+$/, '').replace(/^\d{4}[-_.]?\d{2}[-_.]?\d{0,2}[-_.]?/, '').replace(/[-_]+/g, ' ').trim() || 'photograph';
 // the caption on every photo, home and photo dump alike: "35mm". no numbers, no dates.
 const NOTE = '35mm';
-const figure = (name, note) => {
+const figure = (name, note, link) => {
   const f = document.createElement('figure');
-  // the frame is a link: a click opens that photo's own page, with its date, location, camera and film
-  const frame = document.createElement('a'); frame.className = 'frame fit';
-  frame.href = 'photo.html?p=' + encodeURIComponent(name); frame.setAttribute('aria-label', 'open ' + describe(name));
+  // on photo dump the frame is a link: a click opens that photo's own page, with its date, location, camera and film.
+  // on home it is not: the photos there are only looked at
+  const frame = document.createElement(link ? 'a' : 'div'); frame.className = 'frame fit';
+  if (link) { frame.href = 'photo.html?p=' + encodeURIComponent(name); frame.setAttribute('aria-label', 'open ' + describe(name)); }
   const img = new Image(); img.src = 'photos/' + encodeURIComponent(name); img.alt = describe(name); img.loading = 'lazy';
   frame.append(img);
   const cap = document.createElement('figcaption');
@@ -79,7 +80,7 @@ if (recent) (async () => {
   const names = (await photoList()).slice().reverse().slice(0, RECENT);
   if (!names.length) return;
   recent.querySelectorAll('figure').forEach(f => f.remove());
-  names.forEach(name => recent.append(figure(name, NOTE)));
+  names.forEach(name => recent.append(figure(name, NOTE, true)));
 })();
 
 // one photograph: photo.html?p=<file name>. its details are read from photos/details.json, where an entry is
