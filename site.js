@@ -9,25 +9,31 @@ if (strip && !strip.classList.contains('still')) strip.addEventListener('wheel',
 }, { passive: false });
 
 // ---- photographs -------------------------------------------------------------------------------
-// Anything dropped in the repo's photos/ folder shows up here: the list is read from GitHub.
-// If the list can't be read, or the folder is empty, the grey stand-in frames stay.
+// The photos are listed in photos.json, which tools/photos.py writes (see photos/README.md).
+// If that list can't be read, the folder listing is asked of GitHub instead.
+// If neither can be read, or the folder is empty, the grey stand-in frames stay.
 const REPO = 'Logankenney/Claire-Tian';
 const PER_TURN = 10;    // how many frames the work page's strip holds at once
 const HOME = 3;         // how many the home page shows
 const RECENT = 4;        // how many the recent shots page shows
 
+const isPhoto = name => /\.(jpe?g|png|webp)$/i.test(name);
 async function photoList() {
   try {
-    const cached = sessionStorage.getItem('photos');
+    const cached = sessionStorage.getItem('photo-list');
     if (cached) return JSON.parse(cached);
   } catch (e) {}
+  let names = [];
   try {
+    const r = await fetch('photos.json', { cache: 'no-cache' });
+    if (r.ok) names = (await r.json()).filter(isPhoto).sort();
+  } catch (e) {}
+  if (!names.length) try {
     const r = await fetch('https://api.github.com/repos/' + REPO + '/contents/photos');
-    if (!r.ok) return [];
-    const names = (await r.json()).filter(f => f.type === 'file' && /\.(jpe?g|png|webp)$/i.test(f.name)).map(f => f.name).sort();
-    try { sessionStorage.setItem('photos', JSON.stringify(names)); } catch (e) {}
-    return names;
-  } catch (e) { return []; }
+    if (r.ok) names = (await r.json()).filter(f => f.type === 'file' && isPhoto(f.name)).map(f => f.name).sort();
+  } catch (e) {}
+  if (names.length) try { sessionStorage.setItem('photo-list', JSON.stringify(names)); } catch (e) {}
+  return names;
 }
 const describe = name => name.replace(/\.[^.]+$/, '').replace(/^\d{4}[-_.]?\d{2}[-_.]?\d{0,2}[-_.]?/, '').replace(/[-_]+/g, ' ').trim() || 'photograph';
 const figure = (name, n, note) => {

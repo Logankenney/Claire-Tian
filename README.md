@@ -13,8 +13,10 @@ A plain static site served by GitHub Pages at https://www.claire-tian.com. There
 | `recent.html` | Recent shots, newest first, in the same sideways strip, with the short about copy |
 | `contact.html` | The contact address and the "i have an idea" box |
 | `styles.css` | All styling: light, black and white, lowercase |
-| `site.js` | Loads photos from `photos/` in a new random order on each page load, turns the work page when "work" is clicked, sideways scrolling |
-| `photos/` | Drop photographs here and the site shows them (see `photos/README.md`) |
+| `site.js` | Loads the photos listed in `photos.json` in a new random order on each page load, turns the work page when "work" is clicked, sideways scrolling |
+| `photos/` | The photographs, as small WebP copies; originals in `photos/originals/` (see `photos/README.md`) |
+| `photos.json` | The list of photos the pages show, written by `tools/photos.py` |
+| `tools/photos.py` | Makes WebP copies of new photos and rewrites `photos.json` |
 | `booking.js` | The contact address (`CONTACT_EMAIL`, one line) and the idea box |
 | `CNAME` | The domain GitHub Pages serves |
 
