@@ -15,7 +15,6 @@ body {
   text-transform: lowercase;
   overflow: hidden;
 }
-body.page { overflow: auto; }
 a { color: inherit; text-decoration: none; }
 a:hover, a[aria-current] { text-decoration: line-through; }
 ::selection { background: var(--ink); color: var(--paper); }
@@ -45,11 +44,9 @@ figure:nth-of-type(even) { margin-top: 12vh; }      /* uneven on purpose */
 figure:nth-of-type(3n) { margin-top: 5vh; }
 .frame { height: 62vh; aspect-ratio: 2 / 3; position: relative; overflow: hidden; background: #1a1a1a; }
 .frame:not(.fit) { opacity: .9; outline: 1px solid var(--ink); outline-offset: 5px; }   /* stand-ins read as x-ray plates */
-.frame.wide { aspect-ratio: 4 / 3; height: 48vh; }
-.frame.sq { aspect-ratio: 1; height: 40vh; }
 .frame img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1) contrast(1.08); }
-.frame.fit { aspect-ratio: auto; background: none; }       /* a real photo keeps its own shape */
-.frame.fit img { width: auto; height: 100%; object-fit: contain; }
+/* every frame is portrait, 2 by 3. a real photo fills it; a landscape one is cropped to the middle. */
+.frame.fit { background: none; }
 .frame.fit::after { content: none; }
 figure[hidden] { display: none; }
 /* stand-ins until real photos are dropped in: swap a .frame's contents for an <img> */
@@ -65,21 +62,15 @@ figure[hidden] { display: none; }
 }
 figcaption { padding-top: 6px; font-size: 9px; color: var(--muted); display: flex; justify-content: space-between; }
 
-/* inner pages: one narrow column, pushed off-centre, mostly empty */
-.sheet { margin-left: calc(var(--side) + 22vw); padding: 22px 24px 120px 0; max-width: 34ch; box-sizing: content-box; }
+/* contact: one narrow column, pushed off-centre, mostly empty. nothing on this site scrolls down. */
+.sheet { position: fixed; inset: 0 0 0 calc(var(--side) + 22vw); padding: 22px 24px 22px 0; overflow: hidden; }
+.sheet > * { max-width: 34ch; }
 .sheet h2 { font: inherit; margin: 0 0 40px; color: var(--muted); }
 .sheet p { margin: 0 0 14px; }
 .sheet a.go { border-bottom: 1px solid var(--ink); }
 .sheet a.go:hover { text-decoration: none; border-bottom-color: transparent; }
-/* recent shots: one column down the page, frames stepping left and right */
-.recent { margin-left: calc(var(--side) + 22vw); padding: 22px 24px 160px 0; width: min(46vw, 520px); }
-.recent h2 { font: inherit; margin: 0 0 40px; color: var(--muted); }
-.recent figure { margin: 0 0 110px; width: 62%; }
-.recent figure:nth-of-type(even) { margin-top: 0; margin-left: 38%; }
-.recent figure:nth-of-type(3n) { margin-top: 0; margin-left: 14%; }
-.recent .frame, .recent .frame.wide, .recent .frame.sq { height: auto; width: 100%; }
-.recent .frame.fit img, .reel .frame.fit img { max-width: 100%; }
-.recent .frame.fit img { width: 100%; height: auto; }
+/* recent shots: the same sideways strip as work, with dates */
+.intro .label { color: var(--muted); }
 .note { font-size: 9px; }
 
 /* contact: one prompt, one text box */
@@ -87,7 +78,7 @@ form { display: grid; gap: 10px; margin-top: 46px; }
 form label { color: var(--ink); }
 textarea {
   font: inherit; letter-spacing: inherit; text-transform: none; color: var(--ink); background: transparent;
-  border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 6px 0; width: 100%; min-height: 96px; resize: vertical;
+  border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 6px 0; width: 100%; height: 96px; resize: none;
 }
 textarea:focus { outline: 0; border-bottom-color: var(--ink); }
 button.send { justify-self: start; font: inherit; letter-spacing: inherit; text-transform: lowercase; cursor: pointer; color: var(--ink); background: none; border: 0; border-bottom: 1px solid var(--ink); padding: 0; margin-top: 8px; }
@@ -95,21 +86,19 @@ button.send:hover { border-bottom-color: transparent; }
 .status { min-height: 1.7em; margin: 0; color: var(--muted); }
 
 @media (max-width: 720px) {
-  body { overflow: auto; }
-  .side { position: static; width: auto; padding: 18px 18px 0; display: block; }
+  /* phones: the name and menu sit on top, the strip still runs sideways underneath */
+  body { display: flex; flex-direction: column; }
+  .side { position: static; flex: none; width: auto; padding: 18px 18px 0; display: block; }
   .name { margin: 0 0 10px; }
   nav { display: flex; flex-wrap: wrap; gap: 0 14px; }
   .foot { display: none; }
-  .reel { position: static; flex-direction: column; gap: 70px; padding: 60px 18px 80px; overflow: visible; }
-  .intro { flex: none; align-self: flex-start; }
-  .hint { display: none; }
-  figure, figure:nth-of-type(even), figure:nth-of-type(3n) { margin-top: 0; width: 78%; }
-  figure:nth-of-type(even) { align-self: flex-end; }
-  .frame, .frame.wide, .frame.sq { height: auto; width: 100%; }
-  .frame.fit img { width: 100%; height: auto; }
-  .sheet { margin: 0; padding: 70px 18px 90px 22vw; max-width: none; }
-  .recent { margin: 0; padding: 70px 18px 90px; width: auto; }
-  .recent figure { width: 78%; }
-  .recent figure:nth-of-type(even) { margin-left: 22%; }
+  .reel { position: static; flex: 1; min-height: 0; gap: 12vw; padding: 34px 18vw 18px 18px; }
+  .intro { flex: 0 0 62vw; }
+  .intro.bare { flex-basis: 30vw; }
+  .frame { height: 50vh; }
+  figure:nth-of-type(even) { margin-top: 9vh; }
+  .sheet { position: static; flex: 1; min-height: 0; padding: 50px 18px 18px 22vw; }
+  .sheet h2 { margin-bottom: 26px; }
 }
+@media (max-height: 520px) { .sheet { overflow-y: auto; } }   /* a phone on its side still reaches "send" */
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

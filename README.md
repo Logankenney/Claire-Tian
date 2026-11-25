@@ -10,7 +10,7 @@ A plain static site served by GitHub Pages at https://www.claire-tian.com. There
 |---|---|
 | `index.html` | Home page: the two lines of copy and the first three frames, which stay still |
 | `work.html` | Work page: the sideways reel, three frames at a time, with the scroll arrow |
-| `recent.html` | Recent shots, newest first |
+| `recent.html` | Recent shots, newest first, in the same sideways strip |
 | `contact.html` | The contact address and the "i have an idea" box |
 | `styles.css` | All styling: light, black and white, lowercase |
 | `site.js` | Loads photos from `photos/`, turns the work page when "work" is clicked, sideways scrolling |
