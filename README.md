@@ -8,7 +8,8 @@ A plain static site served by GitHub Pages at https://www.claire-tian.com. There
 
 | File | What it is |
 |---|---|
-| `index.html` | Home page: the sideways reel of work |
+| `index.html` | Home page: the two lines of copy and the first three frames, which stay still |
+| `work.html` | Work page: the sideways reel, three frames at a time, with the scroll arrow |
 | `recent.html` | Recent shots, newest first |
 | `contact.html` | Contact links and the shoot request form |
 | `styles.css` | All styling: light, black and white, lowercase |
@@ -19,7 +20,7 @@ A plain static site served by GitHub Pages at https://www.claire-tian.com. There
 
 To preview, run `python3 -m http.server` in this folder and open http://localhost:8000.
 
-**Still placeholder:** the grey frames on the work and recent shots pages, until `photos/` has photographs in it. The contact address `hello@claire-tian.com` is real and forwards to Claire.
+**Still placeholder:** the grey frames on the home, work and recent shots pages, until `photos/` has photographs in it. The contact address `hello@claire-tian.com` is real and forwards to Claire.
 
 **Booking:** lives on the contact page. The site has no server, so the form opens the visitor's email app with the request filled in. A form service or a scheduling embed can replace it later.
 

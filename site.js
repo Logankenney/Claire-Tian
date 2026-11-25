@@ -41,7 +41,9 @@ const figure = (name, n, note) => {
 };
 
 // work: three frames at a time. They change only when "work" is clicked, never on a timer.
-const workLink = document.querySelector('nav a[href="./"]');
+// The home page shows the first three and stays still; the work page is the one that turns.
+const workLink = document.querySelector('nav a[href="work.html"]');
+const turning = reel && reel.classList.contains('turning');
 if (reel) (async () => {
   const names = await photoList();
   if (names.length) {
@@ -51,14 +53,14 @@ if (reel) (async () => {
   const figs = [...reel.querySelectorAll('figure')];
   const turns = Math.max(1, Math.ceil(figs.length / PER_TURN));
   let turn = 0;
-  try { turn = (parseInt(sessionStorage.getItem('turn') || '-1', 10) + 1) % turns; } catch (e) {}
+  if (turning) try { turn = (parseInt(sessionStorage.getItem('turn') || '-1', 10) + 1) % turns; } catch (e) {}
   const show = () => {
     figs.forEach((f, i) => { f.hidden = Math.floor(i / PER_TURN) !== turn; });
     reel.scrollLeft = 0;
-    try { sessionStorage.setItem('turn', String(turn)); } catch (e) {}
+    if (turning) try { sessionStorage.setItem('turn', String(turn)); } catch (e) {}
   };
   show();
-  workLink.addEventListener('click', e => { e.preventDefault(); turn = (turn + 1) % turns; show(); });
+  if (turning) workLink.addEventListener('click', e => { e.preventDefault(); turn = (turn + 1) % turns; show(); });
 })();
 
 // recent shots: the newest few, by file name
