@@ -35,8 +35,8 @@ async function photoList() {
   return names;
 }
 const describe = name => name.replace(/\.[^.]+$/, '').replace(/^\d{4}[-_.]?\d{2}[-_.]?\d{0,2}[-_.]?/, '').replace(/[-_]+/g, ' ').trim() || 'photograph';
-// the caption on every photo, home and photo dump alike: its number, then the year and month from the file name
-const dated = name => (name.match(/^\d{4}[-_.]?\d{2}/) || [''])[0].replace(/[-_]/, '.');
+// the caption on every photo, home and photo dump alike: its number, then "35mm". no dates.
+const NOTE = '35mm';
 const figure = (name, n, note) => {
   const f = document.createElement('figure');
   const frame = document.createElement('div'); frame.className = 'frame fit';
@@ -54,7 +54,7 @@ if (reel) (async () => {
   const names = await photoList();
   if (names.length) {
     reel.querySelectorAll('figure').forEach(f => f.remove());
-    names.forEach(name => reel.append(figure(name, 0, dated(name))));
+    names.forEach(name => reel.append(figure(name, 0, NOTE)));
   }
   const figs = [...reel.querySelectorAll('figure')];
   for (let i = figs.length - 1; i > 0; i--) { const k = Math.floor(Math.random() * (i + 1)); [figs[i], figs[k]] = [figs[k], figs[i]]; }
@@ -79,5 +79,5 @@ if (recent) (async () => {
   const names = (await photoList()).slice().reverse().slice(0, RECENT);
   if (!names.length) return;
   recent.querySelectorAll('figure').forEach(f => f.remove());
-  names.forEach((name, i) => recent.append(figure(name, i + 1, dated(name))));
+  names.forEach((name, i) => recent.append(figure(name, i + 1, NOTE)));
 })();
