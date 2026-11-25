@@ -1,11 +1,11 @@
 /* claire tian: light, black and white, minimal, lowercase, a little cold. */
 :root {
-  --paper: #f4f3ef;
+  --paper: #efe8d9;      /* uncoated paper */
   --ink: #0e0e0e;
-  --muted: #9a9995;
-  --line: #d9d7d0;
+  --muted: #8f897b;
+  --line: #d3cab7;
   --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  --side: 210px;
+  --side: 230px;
 }
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; }
@@ -22,7 +22,7 @@ a:hover, a[aria-current] { text-decoration: line-through; }
 
 /* sidebar: small, top corner, nothing friendly about it */
 .side { position: fixed; inset: 0 auto 0 0; width: var(--side); padding: 22px 20px; display: flex; flex-direction: column; z-index: 3; }
-.name { font: 400 11px/1.7 var(--mono); letter-spacing: .04em; margin: 0 0 40px; }
+.name { font: 400 11px/1.7 var(--mono); letter-spacing: .42em; margin: 0 0 40px; padding-bottom: 14px; border-bottom: 1px solid var(--ink); white-space: nowrap; }
 nav a { display: block; color: var(--muted); white-space: nowrap; }
 nav a:hover, nav a[aria-current] { color: var(--ink); }
 .foot { margin-top: auto; font-size: 9px; color: var(--muted); line-height: 1.7; }
@@ -36,15 +36,21 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
 }
 .reel::-webkit-scrollbar { display: none; }
 .intro { flex: 0 0 26vw; align-self: flex-end; padding: 0 0 6px; color: var(--muted); }
-.intro p { margin: 0; max-width: 24ch; }
+.intro p { margin: 0; max-width: 30ch; }
+.intro .lead { color: var(--ink); margin-bottom: 6px; }
 .intro .hint { margin-top: 28px; }
 figure { margin: 0; flex: 0 0 auto; display: flex; flex-direction: column; }
 figure:nth-of-type(even) { margin-top: 12vh; }      /* uneven on purpose */
 figure:nth-of-type(3n) { margin-top: 5vh; }
 .frame { height: 62vh; aspect-ratio: 2 / 3; position: relative; overflow: hidden; background: #1a1a1a; }
+.frame:not(.fit) { opacity: .9; outline: 1px solid var(--ink); outline-offset: 5px; }   /* stand-ins read as x-ray plates */
 .frame.wide { aspect-ratio: 4 / 3; height: 48vh; }
 .frame.sq { aspect-ratio: 1; height: 40vh; }
 .frame img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1) contrast(1.08); }
+.frame.fit { aspect-ratio: auto; background: none; }       /* a real photo keeps its own shape */
+.frame.fit img { width: auto; height: 100%; object-fit: contain; }
+.frame.fit::after { content: none; }
+figure[hidden] { display: none; }
 /* stand-ins until real photos are dropped in: swap a .frame's contents for an <img> */
 .p1 { background: radial-gradient(55% 40% at 30% 28%, #d8d8d8 0, transparent 70%), linear-gradient(165deg, #6f6f6f, #1c1c1c 60%, #050505); }
 .p2 { background: radial-gradient(45% 35% at 72% 22%, #f2f2f2 0, transparent 70%), linear-gradient(200deg, #a9a9a9, #4a4a4a 55%, #121212); }
@@ -64,12 +70,15 @@ figcaption { padding-top: 6px; font-size: 9px; color: var(--muted); display: fle
 .sheet p { margin: 0 0 14px; }
 .sheet a.go { border-bottom: 1px solid var(--ink); }
 .sheet a.go:hover { text-decoration: none; border-bottom-color: transparent; }
-.portrait { width: 150px; margin: 0 0 34px; }
-.portrait .frame { height: auto; width: 100%; aspect-ratio: 4 / 5; }
-.list { margin: 0 0 40px; padding: 0; list-style: none; }
-.list li { display: grid; grid-template-columns: 3ch 1fr auto; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); }
-.list li:last-child { border-bottom: 1px solid var(--line); }
-.list span:first-child, .list span:last-child, .note { color: var(--muted); }
+/* recent shots: one column down the page, frames stepping left and right */
+.recent { margin-left: calc(var(--side) + 22vw); padding: 22px 24px 160px 0; width: min(46vw, 520px); }
+.recent h2 { font: inherit; margin: 0 0 40px; color: var(--muted); }
+.recent figure { margin: 0 0 110px; width: 62%; }
+.recent figure:nth-of-type(even) { margin-top: 0; margin-left: 38%; }
+.recent figure:nth-of-type(3n) { margin-top: 0; margin-left: 14%; }
+.recent .frame, .recent .frame.wide, .recent .frame.sq { height: auto; width: 100%; }
+.recent .frame.fit img, .reel .frame.fit img { max-width: 100%; }
+.recent .frame.fit img { width: 100%; height: auto; }
 .note { font-size: 9px; }
 form { display: grid; gap: 22px; }
 label { display: grid; gap: 2px; color: var(--muted); }
@@ -98,6 +107,10 @@ button.send:hover { border-bottom-color: transparent; }
   figure, figure:nth-of-type(even), figure:nth-of-type(3n) { margin-top: 0; width: 78%; }
   figure:nth-of-type(even) { align-self: flex-end; }
   .frame, .frame.wide, .frame.sq { height: auto; width: 100%; }
+  .frame.fit img { width: 100%; height: auto; }
   .sheet { margin: 0; padding: 70px 18px 90px 22vw; max-width: none; }
+  .recent { margin: 0; padding: 70px 18px 90px; width: auto; }
+  .recent figure { width: 78%; }
+  .recent figure:nth-of-type(even) { margin-left: 22%; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
