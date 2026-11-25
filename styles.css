@@ -6,7 +6,7 @@
   --line: #d3cab7;
   --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --side: 230px;
-  /* how photographs are shown. black and white now; for colour, change this one line to:  --photo: none;  */
+  /* how photographs are shown at rest. black and white now; for colour, change this one line to:  --photo: none;  */
   --photo: grayscale(1) contrast(1.08);
   /* the size of every photograph, on home and on photo dump alike: 2 by 3, never taller than 78vh, and narrow enough
      that three share the row beside the menu (100vw less the menu, the right margin and two gaps) */
@@ -53,12 +53,15 @@ figure:nth-of-type(even) { margin-bottom: 12vh; }   /* uneven on purpose */
 figure:nth-of-type(3n) { margin-bottom: 5vh; }
 .still figure:nth-of-type(n), .recent figure:nth-of-type(n) { margin-bottom: 0; }   /* level, not staggered */
 /* home and photo dump share every photo rule: same size, same shape, same gap, level and centred top to bottom,
-   same black and white, same caption. only the behaviour differs: home is still, photo dump scrolls sideways. */
+   same black and white, same fade to colour under the mouse, same caption. only the behaviour differs: home is still, photo dump scrolls sideways. */
 .reel.still, .reel.recent { align-items: center; gap: var(--frame-gap); }
 .still .frame, .recent .frame { height: var(--frame-h); width: auto; }
 .frame { height: 62vh; aspect-ratio: 2 / 3; position: relative; overflow: hidden; background: #1a1a1a; }
 .frame:not(.fit) { opacity: .9; outline: 1px solid var(--ink); outline-offset: 5px; }   /* stand-ins read as x-ray plates */
-.frame img { width: 100%; height: 100%; object-fit: cover; display: block; filter: var(--photo); }
+.frame img { width: 100%; height: 100%; object-fit: cover; display: block; filter: var(--photo); transition: filter .3s ease; }
+/* mouse over a photo: it fades to its original colour, and fades back to black and white when the mouse leaves.
+   only where there is a real pointer, so a tap on a phone does not leave a photo stuck in colour */
+@media (hover: hover) { .frame:hover img { filter: grayscale(0) contrast(1); } }
 /* every frame is portrait, 2 by 3. a real photo fills it; a landscape one is cropped to the middle. */
 .frame.fit { background: none; }
 .frame.fit::after { content: none; }
