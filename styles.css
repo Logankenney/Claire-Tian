@@ -41,14 +41,18 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
 .intro .lead { color: var(--ink); margin-bottom: 6px; }
 .intro .hint { margin-top: 14px; }
 .intro.bare { flex-basis: 8vw; }
-/* home: the same three frames, but still. they shrink to fit the window; nothing scrolls. */
-.reel.still { overflow: hidden; gap: 4vw; padding-right: 4vw; }
+/* home: three frames, still, as large as the window allows and centred top to bottom; nothing scrolls. */
+.reel.still { overflow: hidden; align-items: center; justify-content: center; gap: 2.5vw; padding-right: 3vw; }
 .still .intro { flex: 0 0 20vw; }
-.still figure { flex: 1 1 0; min-width: 0; max-width: calc(62vh * 2 / 3); }
+.still figure { flex: 1 1 0; min-width: 0; max-width: calc(78vh * 2 / 3); }
 .still .frame { height: auto; width: 100%; }
+@media (min-width: 721px) {   /* the two lines of copy move under the menu so the frames get the whole width */
+  .still .intro { position: fixed; left: 20px; bottom: 96px; width: calc(var(--side) - 40px); padding: 0; }
+}
 figure { margin: 0; flex: 0 0 auto; display: flex; flex-direction: column; }
 figure:nth-of-type(even) { margin-bottom: 12vh; }   /* uneven on purpose */
 figure:nth-of-type(3n) { margin-bottom: 5vh; }
+.still figure:nth-of-type(n) { margin-bottom: 0; }   /* home: level, not staggered */
 .frame { height: 62vh; aspect-ratio: 2 / 3; position: relative; overflow: hidden; background: #1a1a1a; }
 .frame:not(.fit) { opacity: .9; outline: 1px solid var(--ink); outline-offset: 5px; }   /* stand-ins read as x-ray plates */
 .frame img { width: 100%; height: 100%; object-fit: cover; display: block; filter: var(--photo); }
