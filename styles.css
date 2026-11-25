@@ -8,6 +8,10 @@
   --side: 230px;
   /* how photographs are shown. black and white now; for colour, change this one line to:  --photo: none;  */
   --photo: grayscale(1) contrast(1.08);
+  /* the size of every photograph, on home and on photo dump alike: 2 by 3, never taller than 78vh, and narrow enough
+     that three share the row beside the menu (100vw less the menu, the right margin and two gaps) */
+  --frame-h: min(78vh, 46vw - 115px);
+  --frame-gap: 2.5vw;
 }
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; }
@@ -42,28 +46,20 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
 .intro .hint { margin-top: 14px; }
 .intro.bare { flex-basis: 8vw; }
 /* home: three frames, still, as large as the window allows and centred top to bottom; nothing scrolls. */
-.reel.still { overflow: hidden; align-items: center; justify-content: center; gap: 2.5vw; padding-right: 3vw; }
-.still .intro { flex: 0 0 20vw; }
-.still figure { flex: 1 1 0; min-width: 0; max-width: calc(78vh * 2 / 3); }
-.still .frame { height: auto; width: 100%; }
-.still .intro .lead { font-size: 14px; }   /* "only feelings", a touch larger than the rest */
-@media (min-width: 721px) {   /* the two lines of copy stay put: one above the photos, one in the side panel, so the frames get the whole width */
-  .still .intro { display: contents; }
-  .still .intro p { position: fixed; left: 0; width: var(--side); padding: 0 12px; max-width: none; margin: 0; text-align: center; transform: translateY(-50%); }
-  .still .intro .lead { top: 8vh; left: var(--side); right: 3vw; width: auto; }   /* "only feelings": fixed above the photos, centred over the row */
-  /* where the home photos sit: three frames share the row (100vw less the menu, the right margin and two gaps),
-     each 2 by 3 and never taller than 78vh, centred top to bottom with a caption under each */
-  .home { --frame-h: min(78vh, 46vw - 115px); --row-half: calc((var(--frame-h) + 21px) / 2); }
-  .still .intro p:not(.lead) {   /* "candid when it was still cool": one line under the photos, centred like "only feelings" */
-    top: min(calc(50vh + var(--row-half) + 4vh), calc(100vh - 28px));
-    left: var(--side); right: 3vw; width: auto; white-space: nowrap;
-  }
-  .home nav { position: fixed; left: 20px; top: calc(50vh - var(--row-half) - 4px); }   /* menu: top level with the top of the photos */
+.reel.still { overflow: hidden; justify-content: center; padding-right: 3vw; }
+@media (min-width: 721px) {
+  /* half the height of a row of photos with its caption (21px); the row is centred top to bottom */
+  body { --row-half: calc((var(--frame-h) + 21px) / 2); }
+  .home nav { position: fixed; left: 20px; top: max(77px, calc(50vh - var(--row-half) - 4px)); }   /* home menu: top level with the top of the photos, never up into the name */
 }
 figure { margin: 0; flex: 0 0 auto; display: flex; flex-direction: column; }
 figure:nth-of-type(even) { margin-bottom: 12vh; }   /* uneven on purpose */
 figure:nth-of-type(3n) { margin-bottom: 5vh; }
-.still figure:nth-of-type(n) { margin-bottom: 0; }   /* home: level, not staggered */
+.still figure:nth-of-type(n), .recent figure:nth-of-type(n) { margin-bottom: 0; }   /* level, not staggered */
+/* home and photo dump share every photo rule: same size, same shape, same gap, level and centred top to bottom,
+   same black and white, same caption. only the behaviour differs: home is still, photo dump scrolls sideways. */
+.reel.still, .reel.recent { align-items: center; gap: var(--frame-gap); }
+.still .frame, .recent .frame { height: var(--frame-h); width: auto; }
 .frame { height: 62vh; aspect-ratio: 2 / 3; position: relative; overflow: hidden; background: #1a1a1a; }
 .frame:not(.fit) { opacity: .9; outline: 1px solid var(--ink); outline-offset: 5px; }   /* stand-ins read as x-ray plates */
 .frame img { width: 100%; height: 100%; object-fit: cover; display: block; filter: var(--photo); }
@@ -94,15 +90,18 @@ figcaption { padding-top: 6px; font-size: 9px; color: var(--muted); display: fle
 /* recent shots: the same sideways strip as work, with dates */
 .note { font-size: 9px; }
 /* recent shots: laid out like home (frames level, centred top to bottom, copy under the menu), but the strip still scrolls sideways */
-.reel.recent { align-items: center; gap: 2.5vw; }
-.recent figure:nth-of-type(n) { margin-bottom: 0; }
-.recent .frame { height: min(78vh, calc(100vh - 80px)); }
 .recent .intro .lead { margin-bottom: 0; }
 .recent .intro p + p { margin-top: 14px; }       /* each line of copy is its own box */
 .recent .mid { text-align: center; margin-bottom: 14px; }   /* the two lines of copy: text centred */
 .recent .mid p { max-width: none; }
+.recent .intro .top { font-size: 14px; text-align: center; margin-bottom: 14px; }   /* "only feelings", a touch larger than the rest */
+.recent .intro .under { text-align: center; }
 @media (min-width: 721px) {
   .recent .intro { position: fixed; left: 20px; bottom: 80px; width: calc(var(--side) - 40px); padding: 0; }
+  /* "only feelings" above the photos and "analog when it was still cool" under them, each on one line, centred over the row; they stay put while the strip moves */
+  .recent .intro .top, .recent .intro .under { position: fixed; left: var(--side); right: 3vw; max-width: none; margin: 0; white-space: nowrap; transform: translateY(-50%); }
+  .recent .intro .top { top: calc((50vh - var(--row-half)) / 2); }
+  .recent .intro .under { top: min(calc(50vh + var(--row-half) + 4vh), calc(100vh - 12px)); }
   /* the two lines of copy sit beside the pictures, centred top to bottom against them (the caption under a frame is 21px) */
   .recent .mid { position: fixed; left: 20px; width: calc(var(--side) - 40px); top: calc(50vh - 10px); transform: translateY(-50%); margin: 0; }
 }
@@ -122,7 +121,10 @@ button.send:hover { border-bottom-color: transparent; }
 .sheet.contact { inset: 0 0 0 var(--side); padding: 22px 24px 22px 0; justify-content: center; align-items: flex-start; text-align: left; }
 .sheet.contact form { width: 34ch; max-width: 100%; margin-top: 0; }
 
-@media (max-width: 1000px) { .still figure:nth-of-type(n+3) { display: none; } }   /* narrower windows: two frames */
+@media (max-width: 1000px) {   /* narrower windows: sized so two share the row */
+  :root { --frame-h: min(78vh, 70vw - 175px); }
+  .still figure:nth-of-type(n+3) { display: none; }
+}
 @media (max-width: 720px) {
   /* phones: the name and menu sit on top, the strip still runs sideways underneath */
   body { display: flex; flex-direction: column; }
@@ -132,14 +134,12 @@ button.send:hover { border-bottom-color: transparent; }
   .foot { display: none; }
   .reel { position: static; flex: 1; min-height: 0; gap: 12vw; padding: 34px 18vw 18px 18px; }
   .intro { flex: 0 0 62vw; }
-  .reel.still { gap: 8vw; padding-right: 18px; }
-  .still .intro { flex: 0 0 38vw; }
+  :root { --frame-h: min(58vh, 120vw); --frame-gap: 8vw; }
+  .reel.still { padding: 18px; }   /* home: the one photo, in the middle */
   .still figure:nth-of-type(n+2) { display: none; }     /* a phone has room for one */
-  .still .frame { height: auto; }
   .intro.bare { flex-basis: 30vw; }
   .frame { height: 50vh; }
   figure:nth-of-type(even) { margin-bottom: 9vh; }
-  .recent .frame { height: 58vh; }
   .sheet { position: static; flex: 1; min-height: 0; padding: 50px 18px 18px 22vw; }
   .sheet h2 { margin-bottom: 18px; }
   .sheet.contact { padding: 24px 18px; }
