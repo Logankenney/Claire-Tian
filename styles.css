@@ -62,6 +62,7 @@ figure:nth-of-type(3n) { margin-bottom: 5vh; }
 /* mouse over a photo: it fades to its original colour, and fades back to black and white when the mouse leaves.
    only where there is a real pointer, so a tap on a phone does not leave a photo stuck in colour */
 @media (hover: hover) { .frame:hover img { filter: grayscale(0) contrast(1); } }
+a.frame { display: block; cursor: pointer; }   /* a photo is a link to its own page */
 /* every frame is portrait, 2 by 3. a real photo fills it; a landscape one is cropped to the middle. */
 .frame.fit { background: none; }
 .frame.fit::after { content: none; }
@@ -106,6 +107,37 @@ textarea:focus { outline: 0; border-bottom-color: var(--ink); }
 button.send { justify-self: start; font: inherit; letter-spacing: inherit; text-transform: lowercase; cursor: pointer; color: var(--ink); background: none; border: 0; border-bottom: 1px solid var(--ink); padding: 0; margin-top: 8px; }
 button.send:hover { border-bottom-color: transparent; }
 .status { min-height: 1.7em; margin: 0; color: var(--muted); }
+/* one photograph and its details (photo.html): the photo large and centred, four facts with it, "close" in the far corner.
+   three looks, chosen by the class on <body>. nothing scrolls. */
+.one { position: fixed; inset: 0 0 0 var(--side); padding: 22px 3vw 22px 0; display: flex; align-items: center; justify-content: center; }
+.single { display: flex; }
+.single[hidden] { display: none; }
+.single .frame { height: var(--one-h); width: auto; }
+.close { position: fixed; top: 24px; right: 24px; color: var(--muted); z-index: 4; }
+.close:hover { color: var(--ink); }
+.facts { margin: 0; }
+.facts div { display: flex; align-items: baseline; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; }
+.gone { margin: 0; color: var(--muted); }
+.gone a { color: var(--ink); border-bottom: 1px solid var(--ink); }
+/* look a, "log": the facts beside the photo, level with its bottom edge, each on a dotted line like a darkroom log */
+.look-a { --one-h: min(84vh, (100vw - var(--side) - 30ch - 12vw) * 1.5); }
+.look-a .single { align-items: flex-end; gap: 3vw; }
+.look-a .facts { width: 30ch; }
+.look-a .facts dt { flex: 1; display: flex; align-items: baseline; }
+.look-a .facts dt::after { content: ""; flex: 1; margin: 0 8px; border-bottom: 1px dotted var(--muted); opacity: .7; transform: translateY(-3px); }
+/* look b, "edge": two small lines under the photo, like the "35mm" caption: date and location left, camera and film right */
+.look-b { --one-h: min(78vh, (100vw - var(--side) - 8vw) * 1.5); }
+.look-b .single { flex-direction: column; }
+.look-b .facts { display: grid; grid-auto-flow: column; grid-template-rows: auto auto; grid-template-columns: 1fr 1fr; padding-top: 6px; font-size: 9px; color: var(--muted); }
+.look-b .facts div:nth-child(n+3) { justify-content: flex-end; text-align: right; }
+/* look c, "rebate": one small line running up the edge of the photo, like the print on the edge of a roll of film */
+.look-c { --one-h: min(84vh, (100vw - var(--side) - 10vw) * 1.5); }
+.look-c .single { align-items: stretch; gap: 8px; }
+.look-c .facts { writing-mode: vertical-rl; display: flex; justify-content: space-between; font-size: 9px; color: var(--muted); }
+.look-b .facts dt, .look-c .facts dt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }   /* labels kept for screen readers */
+
 /* the contact page only: the prompt, text box and "send" sit half way down, at the left edge where the pictures start on the other pages, text left-justified */
 .sheet.contact { inset: 0 0 0 var(--side); padding: 22px 24px 22px 0; justify-content: center; align-items: flex-start; text-align: left; }
 .sheet.contact form { width: 34ch; max-width: 100%; margin-top: 0; }
@@ -131,6 +163,12 @@ button.send:hover { border-bottom-color: transparent; }
   .dump .over { flex: 1 1 0; display: flex; align-items: center; justify-content: center; padding: 0 18px; }
   .dump .reel { flex: none; padding: 0 18vw 0 18px; }
   body.dump::after { content: ""; flex: 1 1 0; }
+  /* one photograph: under the name and menu, its facts under it (or up its edge) */
+  .one { position: static; flex: 1; min-height: 0; padding: 12px 18px 18px; }
+  .plate { --one-h: min(56vh, 120vw); }
+  .look-a .single { flex-direction: column; align-items: stretch; gap: 12px; }
+  .look-a .facts { width: auto; }
+  .close { top: 20px; right: 18px; }
   .sheet { position: static; flex: 1; min-height: 0; padding: 50px 18px 18px 22vw; }
   .sheet h2 { margin-bottom: 18px; }
   .sheet.contact { padding: 24px 18px; }

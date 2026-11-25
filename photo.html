@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>photograph · claire tian</title>
+<meta name="description" content="a photograph by claire tian.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=24">
+</head>
+<!-- one photograph and its details. opened from any photo as photo.html?p=<file name>.
+     the details come from photos/details.json (see photos/README.md); a missing one shows as a dash.
+     the look is the class on <body>: look-a (a log beside the photo), look-b (two lines under it), look-c (up its edge). -->
+<body class="plate look-a">
+  <aside class="side">
+    <h1 class="name"><a href="./">claire tian</a></h1>
+    <nav aria-label="Main">
+      <a href="recent.html">photo dump</a>
+      <a href="contact.html">contact... please don't</a>
+    </nav>
+    <div class="foot">© <span id="yr"></span> claire tian.<br>all rights reserved.</div>
+  </aside>
+
+  <main class="one" aria-label="photograph">
+    <a class="close" href="./">close</a>
+    <div class="single">
+      <div class="frame fit"><img id="shot" alt=""></div>
+      <dl class="facts">
+        <div><dt>date</dt><dd data-k="date">—</dd></div>
+        <div><dt>location</dt><dd data-k="location">—</dd></div>
+        <div><dt>camera</dt><dd data-k="camera">—</dd></div>
+        <div><dt>film</dt><dd data-k="film">—</dd></div>
+      </dl>
+    </div>
+    <p class="gone" hidden>nothing here. <a class="go" href="./">leave</a></p>
+  </main>
+
+<script src="site.js?v=16"></script>
+</body>
+</html>
