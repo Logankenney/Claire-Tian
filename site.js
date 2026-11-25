@@ -4,7 +4,7 @@ document.getElementById('yr').textContent = new Date().getFullYear();
 // (nothing on the site scrolls down, so the wheel has nothing else to do)
 const reel = document.getElementById('work');
 const strip = document.querySelector('.reel');
-if (strip) strip.addEventListener('wheel', e => {
+if (strip && !strip.classList.contains('still')) strip.addEventListener('wheel', e => {
   if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) { strip.scrollLeft += e.deltaY; e.preventDefault(); }
 }, { passive: false });
 
