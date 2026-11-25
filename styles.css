@@ -89,11 +89,11 @@ figcaption { padding-top: 6px; font-size: 9px; color: var(--muted); display: fle
 .sheet a.go:hover { text-decoration: none; border-bottom-color: transparent; }
 /* recent shots: the same sideways strip as work, with dates */
 .note { font-size: 9px; }
-/* photo dump: laid out like home (frames level, centred top to bottom), but the strip scrolls sideways. one line of copy sits over the photos; nothing beside or under them */
-.over { margin: 0; font-size: 14px; text-align: center; color: var(--ink); }
+/* photo dump: laid out like home (frames level, centred top to bottom), but the strip scrolls sideways. one line of copy sits under the photos; nothing beside or over them */
+.under { margin: 0; font-size: 14px; text-align: center; color: var(--ink); }
 @media (min-width: 721px) {
-  /* on one line, centred over the row, half way between the top of the window and the photos; it stays put while the strip moves */
-  .over { position: fixed; left: var(--side); right: 3vw; top: calc((50vh - var(--row-half)) / 2); transform: translateY(-50%); white-space: nowrap; }
+  /* on one line, centred under the row, a little below the captions and never off the bottom of the window; it stays put while the strip moves */
+  .under { position: fixed; left: var(--side); right: 3vw; top: min(calc(50vh + var(--row-half) + 4vh), calc(100vh - 12px)); transform: translateY(-50%); white-space: nowrap; }
 }
 
 /* contact: one prompt, one text box */
@@ -128,10 +128,12 @@ button.send:hover { border-bottom-color: transparent; }
   .still figure:nth-of-type(n+2) { display: none; }     /* a phone has room for one */
   .frame { height: 50vh; }
   figure:nth-of-type(even) { margin-bottom: 9vh; }
-  /* photo dump: the strip is as tall as its photos and sits half way down what is left; the line of copy is centred in the space above it */
-  .dump .over { flex: 1 1 0; display: flex; align-items: center; justify-content: center; padding: 0 18px; }
+  /* photo dump: the strip is as tall as its photos and sits half way down what is left (equal space above and below);
+     the line of copy sits just under it, the same distance below the captions as on a wide screen */
+  .dump .side { order: -1; }
+  body.dump::before { content: ""; flex: 1 1 0; padding-top: calc(4vh - 12px); }   /* same padding as the line below, so the two spaces match */
   .dump .reel { flex: none; padding: 0 18vw 0 18px; }
-  body.dump::after { content: ""; flex: 1 1 0; }
+  .dump .under { flex: 1 1 0; padding: calc(4vh - 12px) 18px 0; }
   .sheet { position: static; flex: 1; min-height: 0; padding: 50px 18px 18px 22vw; }
   .sheet h2 { margin-bottom: 18px; }
   .sheet.contact { padding: 24px 18px; }
