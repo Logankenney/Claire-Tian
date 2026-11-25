@@ -87,8 +87,6 @@ if (recent) (async () => {
 const single = document.querySelector('.one');
 if (single) (async () => {
   const q = new URLSearchParams(location.search);
-  const look = q.get('look');   // preview only, while the look is being chosen: photo.html?p=...&look=b
-  if (/^[abc]$/.test(look || '')) document.body.className = 'plate look-' + look;
   const name = q.get('p') || '';
   const miss = () => { single.querySelector('.single').hidden = true; single.querySelector('.gone').hidden = false; };
   if (!/^[\w.-]+$/.test(name) || !isPhoto(name)) return miss();
