@@ -14,7 +14,7 @@ if (strip && !strip.classList.contains('still')) strip.addEventListener('wheel',
 // If neither can be read, or the folder is empty, the grey stand-in frames stay.
 const REPO = 'Logankenney/Claire-Tian';
 const HOME = 3;         // how many the home page shows
-const RECENT = 8;        // how many the photo dump page shows
+const RECENT = 10;       // how many the photo dump page shows
 
 const isPhoto = name => /\.(jpe?g|png|webp)$/i.test(name);
 async function photoList() {
