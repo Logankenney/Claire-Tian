@@ -81,20 +81,6 @@ figcaption { padding-top: 6px; font-size: 9px; color: var(--muted); display: fle
 .recent .frame.fit img, .reel .frame.fit img { max-width: 100%; }
 .recent .frame.fit img { width: 100%; height: auto; }
 .note { font-size: 9px; }
-form { display: grid; gap: 22px; }
-label { display: grid; gap: 2px; color: var(--muted); }
-input, select, textarea {
-  font: inherit; letter-spacing: inherit; text-transform: none; color: var(--ink); background: transparent;
-  border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 5px 0; width: 100%;
-}
-select { text-transform: lowercase; appearance: none; }
-textarea { min-height: 70px; resize: vertical; }
-input:focus, select:focus, textarea:focus { outline: 0; border-bottom-color: var(--ink); }
-a:focus-visible, button:focus-visible, .reel:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
-button.send { justify-self: start; font: inherit; letter-spacing: inherit; text-transform: lowercase; cursor: pointer; padding: 0; border: 0; border-bottom: 1px solid var(--ink); background: none; color: var(--ink); }
-button.send:hover { border-bottom-color: transparent; }
-.status { min-height: 1.7em; margin: 0; color: var(--muted); }
-.hp { position: absolute; left: -9999px; }
 
 @media (max-width: 720px) {
   body { overflow: auto; }
