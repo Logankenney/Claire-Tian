@@ -1,29 +1,18 @@
-// Where booking requests and the contact link go. Change this one line to the real address.
+// The contact address shown on the contact page. It forwards to Claire's inbox.
+// Shoot requests come in by email; there is no form.
 const CONTACT_EMAIL = "hello@claire-tian.com";
 
 const mail = document.getElementById('mail');
 if (mail) { mail.href = 'mailto:' + CONTACT_EMAIL; mail.textContent = CONTACT_EMAIL; }
 
-// The site has no server, so the form opens the visitor's own email app with the request filled in.
-// Swap this for a form service or a scheduling embed when real booking is added.
-const form = document.getElementById('booking');
-if (form) {
+// "i have an idea": one text box. The site has no server, so sending opens the visitor's own
+// email app with the idea filled in.
+const form = document.getElementById('idea');
+if (form) form.addEventListener('submit', e => {
+  e.preventDefault();
   const status = document.getElementById('status');
-  const dateInput = form.elements.date;
-  const t = new Date();
-  dateInput.min = new Date(t.getTime() - t.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const f = Object.fromEntries(new FormData(form));
-    if (f.website) return;                       // filled by bots only
-    const missing = ['name', 'email', 'kind', 'date'].filter(k => !String(f[k] || '').trim());
-    if (missing.length) { status.textContent = 'please fill in: ' + missing.join(', ') + '.'; form.elements[missing[0]].focus(); return; }
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email)) { status.textContent = 'that email address looks off.'; form.elements.email.focus(); return; }
-    if (dateInput.min && f.date < dateInput.min) { status.textContent = 'that date has already passed.'; dateInput.focus(); return; }
-    const subject = 'Shoot request: ' + f.kind + ' on ' + f.date;
-    const body = ['Name: ' + f.name, 'Email: ' + f.email, 'Shoot: ' + f.kind, 'Date: ' + f.date,
-                  'Where: ' + (f.place || 'not sure yet'), '', f.idea || ''].join('\n');
-    location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-    status.textContent = 'your email app should open with the request ready to send. if nothing opens, write to ' + CONTACT_EMAIL + '.';
-  });
-}
+  const idea = form.elements.idea.value.trim();
+  if (!idea) { status.textContent = 'nothing written.'; form.elements.idea.focus(); return; }
+  location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent('i have an idea') + '&body=' + encodeURIComponent(idea);
+  status.textContent = 'your email app should open. if it does not, write to ' + CONTACT_EMAIL + '.';
+});

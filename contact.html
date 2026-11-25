@@ -3,39 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contact · Claire Tian</title>
-<meta name="description" content="Get in touch with Claire Tian.">
+<title>contact · claire tian</title>
+<meta name="description" content="contact claire tian.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
-<body class="page">
+<body>
   <aside class="side">
-    <h1 class="name"><a href="./"><span>Claire</span> <span>Tian<span class="dot">.</span></span></a></h1>
+    <h1 class="name"><a href="./">claire tian</a></h1>
     <nav aria-label="Main">
-      <a href="./">work</a>
-      <a href="about.html">about</a>
-      <a href="services.html">services</a>
-      <a href="book.html">book</a>
-      <a href="contact.html" aria-current="page">contact</a>
+      <a href="work.html">work</a>
+      <a href="recent.html">recent shots</a>
+      <a href="contact.html" aria-current="page">contact... please don't</a>
     </nav>
-    <a class="book" href="book.html">book a shoot →</a>
-    <div class="foot">
-      <button class="mode" id="mode" type="button" aria-pressed="false"><i></i><span>go to night</span></button>
-      <div>all photographs © <span id="yr"></span> claire tian.<br>please ask before you use them.</div>
-    </div>
+    <div class="foot">© <span id="yr"></span> claire tian.<br>film. nyc.<br>all rights reserved.</div>
   </aside>
 
   <main class="sheet">
-    <h2>say <b>hi</b>.</h2>
-    <p class="lede">for shoots, use the <a href="book.html" style="text-decoration:underline">booking form</a>. for everything else:</p>
-    <div class="links">
-      <a id="mail" href="#">email</a>
-      <a href="#" data-placeholder>instagram</a>
-      <a href="#" data-placeholder>tiktok</a>
-    </div>
-    <p class="note" style="margin-top:22px">social links are placeholders until the accounts are added.</p>
+    <h2>contact... please don't</h2>
+    <p><a class="go" id="mail" href="#">email</a></p>
+    <h2 style="margin-top:56px">to request a shoot</h2>
+    <p>a request, not a booking. replies are not guaranteed.</p>
+    <form id="idea" novalidate>
+      <label for="idea-text">i have an idea</label>
+      <textarea id="idea-text" name="idea" aria-describedby="status"></textarea>
+      <button class="send" type="submit">send</button>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </form>
   </main>
 
 <script src="site.js"></script>
