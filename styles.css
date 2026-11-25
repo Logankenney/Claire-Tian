@@ -50,8 +50,9 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
 @media (min-width: 721px) {   /* the two lines of copy sit in the side panel, centred, so the frames get the whole width */
   .still .intro { display: contents; }
   .still .intro p { position: fixed; left: 0; width: var(--side); padding: 0 12px; max-width: none; margin: 0; text-align: center; transform: translateY(-50%); }
-  .still .intro .lead { top: 31vh; }
-  .still .intro p:not(.lead) { top: 56vh; }
+  .still .intro .lead { top: 35vh; }
+  .still .intro p:not(.lead) { top: 60vh; }
+  .still .intro .line { display: block; }   /* "candid when it" / "was still cool" on two lines */
 }
 figure { margin: 0; flex: 0 0 auto; display: flex; flex-direction: column; }
 figure:nth-of-type(even) { margin-bottom: 12vh; }   /* uneven on purpose */
