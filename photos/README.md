@@ -11,3 +11,7 @@ Drop photographs in this folder and the site picks them up on its own. No code c
 - The file name, without the date and extension, is used as the photo's description for screen readers.
 
 Until this folder has photos, the pages show grey stand-in frames.
+
+## people
+
+people appear only in candid or unposed photographs. no posed portraits: nobody looking into the lens, arranged for the picture. if a photo is unclear, leave it out and ask.
