@@ -70,7 +70,6 @@ figcaption { padding-top: 6px; font-size: 9px; color: var(--muted); display: fle
 .sheet a.go { border-bottom: 1px solid var(--ink); }
 .sheet a.go:hover { text-decoration: none; border-bottom-color: transparent; }
 /* recent shots: the same sideways strip as work, with dates */
-.intro .label { color: var(--muted); }
 .note { font-size: 9px; }
 
 /* contact: one prompt, one text box */
