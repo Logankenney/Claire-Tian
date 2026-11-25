@@ -1,4 +1,4 @@
-// Where booking requests and the contact link go. Change this one line to the real address.
+// Where booking requests and the contact link go. It forwards to Claire's inbox.
 const CONTACT_EMAIL = "hello@claire-tian.com";
 
 const mail = document.getElementById('mail');
@@ -17,13 +17,13 @@ if (form) {
     const f = Object.fromEntries(new FormData(form));
     if (f.website) return;                       // filled by bots only
     const missing = ['name', 'email', 'kind', 'date'].filter(k => !String(f[k] || '').trim());
-    if (missing.length) { status.textContent = 'please fill in: ' + missing.join(', ') + '.'; form.elements[missing[0]].focus(); return; }
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email)) { status.textContent = 'that email address looks off.'; form.elements.email.focus(); return; }
-    if (dateInput.min && f.date < dateInput.min) { status.textContent = 'that date has already passed.'; dateInput.focus(); return; }
+    if (missing.length) { status.textContent = 'missing: ' + missing.join(', ') + '.'; form.elements[missing[0]].focus(); return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email)) { status.textContent = 'that email is not an email.'; form.elements.email.focus(); return; }
+    if (dateInput.min && f.date < dateInput.min) { status.textContent = 'that date is gone.'; dateInput.focus(); return; }
     const subject = 'Shoot request: ' + f.kind + ' on ' + f.date;
     const body = ['Name: ' + f.name, 'Email: ' + f.email, 'Shoot: ' + f.kind, 'Date: ' + f.date,
                   'Where: ' + (f.place || 'not sure yet'), '', f.idea || ''].join('\n');
     location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-    status.textContent = 'your email app should open with the request ready to send. if nothing opens, write to ' + CONTACT_EMAIL + '.';
+    status.textContent = 'your email app should open with the request. if it does not, write to ' + CONTACT_EMAIL + '.';
   });
 }

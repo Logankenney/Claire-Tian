@@ -9,16 +9,16 @@ A plain static site served by GitHub Pages at https://www.claire-tian.com. There
 | File | What it is |
 |---|---|
 | `index.html` | Home page: the sideways reel of work |
-| `about.html`, `services.html`, `contact.html` | The inner pages |
-| `book.html` | Booking request form |
-| `styles.css` | All styling, including the day and night colors |
-| `site.js` | Day/night switch and sideways scrolling |
+| `about.html`, `services.html` | The inner pages |
+| `contact.html` | Contact links and the shoot request form |
+| `styles.css` | All styling: light, black and white, lowercase |
+| `site.js` | Footer year and sideways scrolling |
 | `booking.js` | The contact address (`CONTACT_EMAIL`, one line) and the booking form |
 | `CNAME` | The domain GitHub Pages serves |
 
 To preview, run `python3 -m http.server` in this folder and open http://localhost:8000.
 
-**Still placeholder:** the colored panels (swap each for an `<img>`, see the comment in `index.html`), the bio, the services and prices, the social links, and the contact address `hello@claire-tian.com`.
+**Still placeholder:** the grey panels (swap each for an `<img>`, see the comment in `index.html`), the about text and the services list. The contact address `hello@claire-tian.com` is real and forwards to Claire.
 
 **Booking:** the site has no server, so the form opens the visitor's email app with the request filled in. A form service or a scheduling embed can replace it later.
 
