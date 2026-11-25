@@ -118,10 +118,9 @@ textarea:focus { outline: 0; border-bottom-color: var(--ink); }
 button.send { justify-self: start; font: inherit; letter-spacing: inherit; text-transform: lowercase; cursor: pointer; color: var(--ink); background: none; border: 0; border-bottom: 1px solid var(--ink); padding: 0; margin-top: 8px; }
 button.send:hover { border-bottom-color: transparent; }
 .status { min-height: 1.7em; margin: 0; color: var(--muted); }
-/* the contact page only: the prompt, text box and "send" sit in the middle of the page, right of the menu */
-.sheet.contact { inset: 0 0 0 var(--side); padding: 22px 24px; justify-content: center; align-items: center; text-align: center; }
+/* the contact page only: the prompt, text box and "send" sit half way down, at the left edge where the pictures start on the other pages, text left-justified */
+.sheet.contact { inset: 0 0 0 var(--side); padding: 22px 24px 22px 0; justify-content: center; align-items: flex-start; text-align: left; }
 .sheet.contact form { width: 34ch; max-width: 100%; margin-top: 0; }
-.sheet.contact button.send { justify-self: center; }
 
 @media (max-width: 1000px) { .still figure:nth-of-type(n+3) { display: none; } }   /* narrower windows: two frames */
 @media (max-width: 720px) {
