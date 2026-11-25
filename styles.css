@@ -39,6 +39,11 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
 .intro .lead { color: var(--ink); margin-bottom: 6px; }
 .intro .hint { margin-top: 28px; }
 .intro.bare { flex-basis: 8vw; }
+/* home: the same three frames, but still. they shrink to fit the window; nothing scrolls. */
+.reel.still { overflow: hidden; gap: 4vw; padding-right: 4vw; }
+.still .intro { flex: 0 0 20vw; }
+.still figure { flex: 1 1 0; min-width: 0; max-width: calc(62vh * 2 / 3); }
+.still .frame { height: auto; width: 100%; }
 figure { margin: 0; flex: 0 0 auto; display: flex; flex-direction: column; }
 figure:nth-of-type(even) { margin-top: 12vh; }      /* uneven on purpose */
 figure:nth-of-type(3n) { margin-top: 5vh; }
@@ -84,6 +89,7 @@ button.send { justify-self: start; font: inherit; letter-spacing: inherit; text-
 button.send:hover { border-bottom-color: transparent; }
 .status { min-height: 1.7em; margin: 0; color: var(--muted); }
 
+@media (max-width: 1000px) { .still figure:nth-of-type(n+3) { display: none; } }   /* narrower windows: two frames */
 @media (max-width: 720px) {
   /* phones: the name and menu sit on top, the strip still runs sideways underneath */
   body { display: flex; flex-direction: column; }
@@ -93,6 +99,10 @@ button.send:hover { border-bottom-color: transparent; }
   .foot { display: none; }
   .reel { position: static; flex: 1; min-height: 0; gap: 12vw; padding: 34px 18vw 18px 18px; }
   .intro { flex: 0 0 62vw; }
+  .reel.still { gap: 8vw; padding-right: 18px; }
+  .still .intro { flex: 0 0 38vw; }
+  .still figure:nth-of-type(n+2) { display: none; }     /* a phone has room for one */
+  .still .frame { height: auto; }
   .intro.bare { flex-basis: 30vw; }
   .frame { height: 50vh; }
   figure:nth-of-type(even) { margin-top: 9vh; }

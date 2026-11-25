@@ -8,7 +8,7 @@ A plain static site served by GitHub Pages at https://www.claire-tian.com. There
 
 | File | What it is |
 |---|---|
-| `index.html` | Home page: the two lines of copy and the first three frames, which stay still |
+| `index.html` | Home page: the two lines of copy and the first three frames, shrunk to fit; it does not scroll or change |
 | `work.html` | Work page: the sideways reel, three frames at a time, with the scroll arrow |
 | `recent.html` | Recent shots, newest first, in the same sideways strip, with the short about copy |
 | `contact.html` | The contact address and the "i have an idea" box |
