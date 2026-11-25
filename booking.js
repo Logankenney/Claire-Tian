@@ -1,9 +1,6 @@
-// The contact address shown on the contact page. It forwards to Claire's inbox.
-// Shoot requests come in by email; there is no form.
+// Where "send" on the contact page addresses the email. It forwards to Claire's inbox.
+// The address is not shown on the page.
 const CONTACT_EMAIL = "hello@claire-tian.com";
-
-const mail = document.getElementById('mail');
-if (mail) { mail.href = 'mailto:' + CONTACT_EMAIL; mail.textContent = CONTACT_EMAIL; }
 
 // "i have an idea": one text box. The site has no server, so sending opens the visitor's own
 // email app with the idea filled in.
