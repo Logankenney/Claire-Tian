@@ -8,7 +8,7 @@ does not show.
 - Use `.jpg`, `.jpeg`, `.png` or `.webp`. Any size; the script shrinks it.
 - Every frame on the site is portrait (2 by 3). A landscape or square photo is cropped to its middle, so portrait originals look best.
 - **home** picks three from this folder in a new random order every time the page loads, and does not scroll.
-- **home** and **photo dump** show photos the same way: same size and shape, same gap, same black and white, the same caption (number, then "35mm"; no dates).
+- **home** and **photo dump** show photos the same way: same size and shape, same gap, same black and white, the same caption ("35mm"; no numbers, no dates).
 - **photo dump** shows the eight newest, judged by file name. Name files so newer ones sort later, for example `2026-11-03-subway.jpg`.
 - The file name, without the date and extension, is used as the photo's description for screen readers.
 

@@ -35,17 +35,16 @@ async function photoList() {
   return names;
 }
 const describe = name => name.replace(/\.[^.]+$/, '').replace(/^\d{4}[-_.]?\d{2}[-_.]?\d{0,2}[-_.]?/, '').replace(/[-_]+/g, ' ').trim() || 'photograph';
-// the caption on every photo, home and photo dump alike: its number, then "35mm". no dates.
+// the caption on every photo, home and photo dump alike: "35mm". no numbers, no dates.
 const NOTE = '35mm';
-const figure = (name, n, note) => {
+const figure = (name, note) => {
   const f = document.createElement('figure');
   const frame = document.createElement('div'); frame.className = 'frame fit';
   const img = new Image(); img.src = 'photos/' + encodeURIComponent(name); img.alt = describe(name); img.loading = 'lazy';
   frame.append(img);
   const cap = document.createElement('figcaption');
-  const a = document.createElement('span'); a.textContent = String(n).padStart(2, '0');
   const b = document.createElement('span'); b.textContent = note;
-  cap.append(a, b); f.append(frame, cap);
+  cap.append(b); f.append(frame, cap);
   return f;
 };
 
@@ -54,7 +53,7 @@ if (reel) (async () => {
   const names = await photoList();
   if (names.length) {
     reel.querySelectorAll('figure').forEach(f => f.remove());
-    names.forEach(name => reel.append(figure(name, 0, NOTE)));
+    names.forEach(name => reel.append(figure(name, NOTE)));
   }
   const figs = [...reel.querySelectorAll('figure')];
   for (let i = figs.length - 1; i > 0; i--) { const k = Math.floor(Math.random() * (i + 1)); [figs[i], figs[k]] = [figs[k], figs[i]]; }
@@ -65,7 +64,6 @@ if (reel) (async () => {
     figs.forEach((_, k) => {
       const f = figs[(start + k) % figs.length];
       f.hidden = k >= per;
-      f.querySelector('figcaption span').textContent = String(k + 1).padStart(2, '0');   // numbered as shown
       reel.append(f);
     });
     reel.scrollLeft = 0;
@@ -79,5 +77,5 @@ if (recent) (async () => {
   const names = (await photoList()).slice().reverse().slice(0, RECENT);
   if (!names.length) return;
   recent.querySelectorAll('figure').forEach(f => f.remove());
-  names.forEach((name, i) => recent.append(figure(name, i + 1, NOTE)));
+  names.forEach(name => recent.append(figure(name, NOTE)));
 })();
