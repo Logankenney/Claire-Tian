@@ -48,10 +48,10 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
 .still .frame { height: auto; width: 100%; }
 .still .intro .lead { font-size: 14px; }   /* "only feelings", a touch larger than the rest */
 @media (min-width: 721px) {   /* the two lines of copy sit in the side panel, centred, so the frames get the whole width */
-  .still .intro { position: fixed; inset: 0 auto 0 0; width: var(--side); padding: 0; pointer-events: none; }
-  .still .intro p { position: absolute; left: 0; right: 0; padding: 0 12px; max-width: none; margin: 0; text-align: center; transform: translateY(-50%); }
-  .still .intro .lead { top: 31%; }
-  .still .intro p:not(.lead) { top: 56%; }
+  .still .intro { display: contents; }
+  .still .intro p { position: fixed; left: 0; width: var(--side); padding: 0 12px; max-width: none; margin: 0; text-align: center; transform: translateY(-50%); }
+  .still .intro .lead { top: 31vh; }
+  .still .intro p:not(.lead) { top: 56vh; }
 }
 figure { margin: 0; flex: 0 0 auto; display: flex; flex-direction: column; }
 figure:nth-of-type(even) { margin-bottom: 12vh; }   /* uneven on purpose */
