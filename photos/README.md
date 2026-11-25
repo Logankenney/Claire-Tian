@@ -1,7 +1,7 @@
 # photos
 
 Drop photographs in this folder, then run `python3 tools/photos.py` from the repo folder (or ask Claude to). It
-makes a small WebP copy of each new photo (at most 1600 pixels on the long side), moves the original to
+makes a small WebP copy of each new photo (at most 1400 pixels on the long side), moves the original to
 `photos/originals/`, and rewrites `photos.json`, the list the pages read. A photo that is not in `photos.json`
 does not show.
 
