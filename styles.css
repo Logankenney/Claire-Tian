@@ -47,11 +47,11 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
 .still figure { flex: 1 1 0; min-width: 0; max-width: calc(78vh * 2 / 3); }
 .still .frame { height: auto; width: 100%; }
 .still .intro .lead { font-size: 14px; }   /* "only feelings", a touch larger than the rest */
-@media (min-width: 721px) {   /* the two lines of copy sit in the side panel, centred, so the frames get the whole width */
+@media (min-width: 721px) {   /* the two lines of copy stay put: one above the photos, one in the side panel, so the frames get the whole width */
   .still .intro { display: contents; }
   .still .intro p { position: fixed; left: 0; width: var(--side); padding: 0 12px; max-width: none; margin: 0; text-align: center; transform: translateY(-50%); }
-  .still .intro .lead { top: 35vh; }
-  .still .intro p:not(.lead) { top: 60vh; }
+  .still .intro .lead { top: 8vh; left: var(--side); right: 3vw; width: auto; }   /* "only feelings": fixed above the photos, centred over the row */
+  .still .intro p:not(.lead) { top: calc(50vh - 9px); }                            /* level with the middle of the photos */
   .still .intro .line { display: block; }   /* "candid when it" / "was still cool" on two lines */
 }
 figure { margin: 0; flex: 0 0 auto; display: flex; flex-direction: column; }
