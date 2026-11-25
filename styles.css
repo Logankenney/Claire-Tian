@@ -86,9 +86,8 @@ figcaption { padding-top: 6px; font-size: 9px; color: var(--muted); display: fle
 .reel.recent { align-items: center; gap: 2.5vw; }
 .recent figure:nth-of-type(n) { margin-bottom: 0; }
 .recent .frame { height: min(78vh, calc(100vh - 80px)); }
-.recent .lead + .lead { margin-top: 14px; }      /* each line of copy is its own box */
 .recent .intro .lead { margin-bottom: 0; }
-.recent .intro .lead:last-of-type { margin-bottom: 14px; }
+.recent .intro p + p { margin-top: 14px; }       /* each line of copy is its own box */
 @media (min-width: 721px) {
   .recent .intro { position: fixed; left: 20px; bottom: 80px; width: calc(var(--side) - 40px); padding: 0; }
 }
