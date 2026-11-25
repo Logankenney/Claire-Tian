@@ -99,8 +99,12 @@ figcaption { padding-top: 6px; font-size: 9px; color: var(--muted); display: fle
 .recent .frame { height: min(78vh, calc(100vh - 80px)); }
 .recent .intro .lead { margin-bottom: 0; }
 .recent .intro p + p { margin-top: 14px; }       /* each line of copy is its own box */
+.recent .mid { text-align: center; margin-bottom: 14px; }   /* the two lines of copy: text centred */
+.recent .mid p { max-width: none; }
 @media (min-width: 721px) {
   .recent .intro { position: fixed; left: 20px; bottom: 80px; width: calc(var(--side) - 40px); padding: 0; }
+  /* the two lines of copy sit beside the pictures, centred top to bottom against them (the caption under a frame is 21px) */
+  .recent .mid { position: fixed; left: 20px; width: calc(var(--side) - 40px); top: calc(50vh - 10px); transform: translateY(-50%); margin: 0; }
 }
 
 /* contact: one prompt, one text box */
