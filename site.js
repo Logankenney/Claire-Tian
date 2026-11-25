@@ -12,7 +12,8 @@ if (strip && !strip.classList.contains('still')) strip.addEventListener('wheel',
 // Anything dropped in the repo's photos/ folder shows up here: the list is read from GitHub.
 // If the list can't be read, or the folder is empty, the grey stand-in frames stay.
 const REPO = 'Logankenney/Claire-Tian';
-const PER_TURN = 3;      // how many frames the work page shows at once
+const PER_TURN = 10;    // how many frames the work page's strip holds at once
+const HOME = 3;         // how many the home page shows
 const RECENT = 4;        // how many the recent shots page shows
 
 async function photoList() {
@@ -41,24 +42,32 @@ const figure = (name, n, note) => {
   return f;
 };
 
-// work: three frames at a time. They change only when "work" is clicked, never on a timer.
-// The home page shows the first three and stays still; the work page is the one that turns.
+// home and work draw from the photos folder in a new random order on every page load.
+// work: ten frames in the strip. Clicking "work" moves ten further through that order and wraps
+// round, so the strip always holds ten (or every photo, when the folder has fewer). No timer.
+// home: three frames, still.
 const workLink = document.querySelector('nav a[href="work.html"]');
 const turning = reel && reel.classList.contains('turning');
 if (reel) (async () => {
   const names = await photoList();
   if (names.length) {
     reel.querySelectorAll('figure').forEach(f => f.remove());
-    names.forEach((name, i) => reel.append(figure(name, i + 1, '35mm')));
+    names.forEach(name => reel.append(figure(name, 0, '35mm')));
   }
   const figs = [...reel.querySelectorAll('figure')];
-  const turns = Math.max(1, Math.ceil(figs.length / PER_TURN));
+  for (let i = figs.length - 1; i > 0; i--) { const k = Math.floor(Math.random() * (i + 1)); [figs[i], figs[k]] = [figs[k], figs[i]]; }
+  const per = Math.min(turning ? PER_TURN : HOME, figs.length);
+  const turns = Math.max(1, Math.ceil(figs.length / per));
   let turn = 0;
-  if (turning) try { turn = (parseInt(sessionStorage.getItem('turn') || '-1', 10) + 1) % turns; } catch (e) {}
   const show = () => {
-    figs.forEach((f, i) => { f.hidden = Math.floor(i / PER_TURN) !== turn; });
+    const start = turn * per;
+    figs.forEach((_, k) => {
+      const f = figs[(start + k) % figs.length];
+      f.hidden = k >= per;
+      f.querySelector('figcaption span').textContent = String(k + 1).padStart(2, '0');   // numbered as shown
+      reel.append(f);
+    });
     reel.scrollLeft = 0;
-    if (turning) try { sessionStorage.setItem('turn', String(turn)); } catch (e) {}
   };
   show();
   if (turning) workLink.addEventListener('click', e => { e.preventDefault(); turn = (turn + 1) % turns; show(); });

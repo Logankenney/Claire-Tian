@@ -6,6 +6,8 @@
   --line: #d3cab7;
   --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --side: 230px;
+  /* how photographs are shown. black and white now; for colour, change this one line to:  --photo: none;  */
+  --photo: grayscale(1) contrast(1.08);
 }
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; }
@@ -21,7 +23,7 @@ a:hover, a[aria-current] { text-decoration: line-through; }
 
 /* sidebar: small, top corner, nothing friendly about it */
 .side { position: fixed; inset: 0 auto 0 0; width: var(--side); padding: 22px 20px; display: flex; flex-direction: column; z-index: 3; }
-.name { font: 400 11px/1.7 var(--mono); letter-spacing: .42em; margin: 0 0 40px; padding-bottom: 14px; border-bottom: 1px solid var(--ink); white-space: nowrap; }
+.name { font: 400 11px/1.7 var(--mono); letter-spacing: .42em; margin: 0 0 28px; white-space: nowrap; }
 nav a { display: block; color: var(--muted); white-space: nowrap; }
 nav a:hover, nav a[aria-current] { color: var(--ink); }
 .foot { margin-top: auto; font-size: 9px; color: var(--muted); line-height: 1.7; }
@@ -29,7 +31,7 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
 /* work: a sideways strip of frames, numbered, no titles */
 .reel {
   position: fixed; inset: 0 0 0 var(--side);
-  display: flex; gap: 6vw; align-items: flex-start;
+  display: flex; gap: 6vw; align-items: flex-end;        /* everything sits low; the empty space is at the top */
   padding: 22px 12vw 22px 0;
   overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
 }
@@ -37,7 +39,7 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
 .intro { flex: 0 0 26vw; align-self: flex-end; padding: 0 0 6px; color: var(--muted); }
 .intro p { margin: 0; max-width: 30ch; }
 .intro .lead { color: var(--ink); margin-bottom: 6px; }
-.intro .hint { margin-top: 28px; }
+.intro .hint { margin-top: 14px; }
 .intro.bare { flex-basis: 8vw; }
 /* home: the same three frames, but still. they shrink to fit the window; nothing scrolls. */
 .reel.still { overflow: hidden; gap: 4vw; padding-right: 4vw; }
@@ -45,11 +47,11 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
 .still figure { flex: 1 1 0; min-width: 0; max-width: calc(62vh * 2 / 3); }
 .still .frame { height: auto; width: 100%; }
 figure { margin: 0; flex: 0 0 auto; display: flex; flex-direction: column; }
-figure:nth-of-type(even) { margin-top: 12vh; }      /* uneven on purpose */
-figure:nth-of-type(3n) { margin-top: 5vh; }
+figure:nth-of-type(even) { margin-bottom: 12vh; }   /* uneven on purpose */
+figure:nth-of-type(3n) { margin-bottom: 5vh; }
 .frame { height: 62vh; aspect-ratio: 2 / 3; position: relative; overflow: hidden; background: #1a1a1a; }
 .frame:not(.fit) { opacity: .9; outline: 1px solid var(--ink); outline-offset: 5px; }   /* stand-ins read as x-ray plates */
-.frame img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1) contrast(1.08); }
+.frame img { width: 100%; height: 100%; object-fit: cover; display: block; filter: var(--photo); }
 /* every frame is portrait, 2 by 3. a real photo fills it; a landscape one is cropped to the middle. */
 .frame.fit { background: none; }
 .frame.fit::after { content: none; }
@@ -68,9 +70,9 @@ figure[hidden] { display: none; }
 figcaption { padding-top: 6px; font-size: 9px; color: var(--muted); display: flex; justify-content: space-between; }
 
 /* contact: one narrow column, pushed off-centre, mostly empty. nothing on this site scrolls down. */
-.sheet { position: fixed; inset: 0 0 0 calc(var(--side) + 22vw); padding: 22px 24px 22px 0; overflow: hidden; }
+.sheet { position: fixed; inset: 0 0 0 calc(var(--side) + 22vw); padding: 22px 24px 22px 0; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
 .sheet > * { max-width: 34ch; }
-.sheet h2 { font: inherit; margin: 0 0 40px; color: var(--muted); }
+.sheet h2 { font: inherit; margin: 0 0 20px; color: var(--muted); }
 .sheet p { margin: 0 0 14px; }
 .sheet a.go { border-bottom: 1px solid var(--ink); }
 .sheet a.go:hover { text-decoration: none; border-bottom-color: transparent; }
@@ -78,7 +80,7 @@ figcaption { padding-top: 6px; font-size: 9px; color: var(--muted); display: fle
 .note { font-size: 9px; }
 
 /* contact: one prompt, one text box */
-form { display: grid; gap: 10px; margin-top: 46px; }
+form { display: grid; gap: 8px; margin-top: 24px; }
 form label { color: var(--ink); }
 textarea {
   font: inherit; letter-spacing: inherit; text-transform: none; color: var(--ink); background: transparent;
@@ -105,9 +107,9 @@ button.send:hover { border-bottom-color: transparent; }
   .still .frame { height: auto; }
   .intro.bare { flex-basis: 30vw; }
   .frame { height: 50vh; }
-  figure:nth-of-type(even) { margin-top: 9vh; }
+  figure:nth-of-type(even) { margin-bottom: 9vh; }
   .sheet { position: static; flex: 1; min-height: 0; padding: 50px 18px 18px 22vw; }
-  .sheet h2 { margin-bottom: 26px; }
+  .sheet h2 { margin-bottom: 18px; }
 }
-@media (max-height: 520px) { .sheet { overflow-y: auto; } }   /* a phone on its side still reaches "send" */
+@media (max-height: 520px) { .sheet { overflow-y: auto; justify-content: flex-start; } }   /* a phone on its side still reaches "send" */
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
