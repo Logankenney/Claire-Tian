@@ -47,7 +47,7 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
 .still figure { flex: 1 1 0; min-width: 0; max-width: calc(78vh * 2 / 3); }
 .still .frame { height: auto; width: 100%; }
 @media (min-width: 721px) {   /* the two lines of copy move under the menu so the frames get the whole width */
-  .still .intro { position: fixed; left: 20px; bottom: 96px; width: calc(var(--side) - 40px); padding: 0; }
+  .still .intro { position: fixed; left: 20px; bottom: 80px; width: calc(var(--side) - 40px); padding: 0; }
 }
 figure { margin: 0; flex: 0 0 auto; display: flex; flex-direction: column; }
 figure:nth-of-type(even) { margin-bottom: 12vh; }   /* uneven on purpose */
