@@ -108,6 +108,10 @@ textarea:focus { outline: 0; border-bottom-color: var(--ink); }
 button.send { justify-self: start; font: inherit; letter-spacing: inherit; text-transform: lowercase; cursor: pointer; color: var(--ink); background: none; border: 0; border-bottom: 1px solid var(--ink); padding: 0; margin-top: 8px; }
 button.send:hover { border-bottom-color: transparent; }
 .status { min-height: 1.7em; margin: 0; color: var(--muted); }
+/* the contact page only: the prompt, text box and "send" sit in the middle of the page, right of the menu */
+.sheet.contact { inset: 0 0 0 var(--side); padding: 22px 24px; justify-content: center; align-items: center; text-align: center; }
+.sheet.contact form { width: 34ch; max-width: 100%; margin-top: 0; }
+.sheet.contact button.send { justify-self: center; }
 
 @media (max-width: 1000px) { .still figure:nth-of-type(n+3) { display: none; } }   /* narrower windows: two frames */
 @media (max-width: 720px) {
@@ -129,6 +133,7 @@ button.send:hover { border-bottom-color: transparent; }
   .recent .frame { height: 58vh; }
   .sheet { position: static; flex: 1; min-height: 0; padding: 50px 18px 18px 22vw; }
   .sheet h2 { margin-bottom: 18px; }
+  .sheet.contact { padding: 24px 18px; }
 }
-@media (max-height: 520px) { .sheet { overflow-y: auto; justify-content: flex-start; } }   /* a phone on its side still reaches "send" */
+@media (max-height: 520px) { .sheet, .sheet.contact { overflow-y: auto; justify-content: flex-start; } }   /* a phone on its side still reaches "send" */
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
