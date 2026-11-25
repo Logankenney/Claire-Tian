@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a shoot · Claire Tian</title>
+<meta name="description" content="Request a photo shoot with Claire Tian.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="page">
+  <aside class="side">
+    <h1 class="name"><a href="./"><span>Claire</span> <span>Tian<span class="dot">.</span></span></a></h1>
+    <nav aria-label="Main">
+      <a href="./">work</a>
+      <a href="about.html">about</a>
+      <a href="services.html">services</a>
+      <a href="book.html" aria-current="page">book</a>
+      <a href="contact.html">contact</a>
+    </nav>
+    <a class="book" href="book.html">book a shoot →</a>
+    <div class="foot">
+      <button class="mode" id="mode" type="button" aria-pressed="false"><i></i><span>go to night</span></button>
+      <div>all photographs © <span id="yr"></span> claire tian.<br>please ask before you use them.</div>
+    </div>
+  </aside>
+
+  <main class="sheet">
+    <h2>book a <b>shoot</b>.</h2>
+    <p class="lede">tell me what you have in mind. this sends a request, not a confirmed booking. i'll reply to lock in the date.</p>
+    <form id="booking" novalidate>
+      <div class="row">
+        <label>your name<input name="name" autocomplete="name" required></label>
+        <label>email<input name="email" type="email" autocomplete="email" required></label>
+      </div>
+      <div class="row">
+        <label>kind of shoot
+          <select name="kind" required>
+            <option value="">choose one</option><option>Portraits</option><option>Editorial</option><option>Event</option><option>Something else</option>
+          </select></label>
+        <label>date you'd like<input name="date" type="date" required></label>
+      </div>
+      <label>where (city or place)<input name="place"></label>
+      <label>the idea<textarea name="idea" placeholder="mood, people, anything you've saved for inspiration"></textarea></label>
+      <label class="hp" aria-hidden="true">leave this empty<input name="website" tabindex="-1" autocomplete="off"></label>
+      <button class="send" type="submit">send request →</button>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+
+<script src="site.js"></script>
+<script src="booking.js"></script>
+</body>
+</html>
