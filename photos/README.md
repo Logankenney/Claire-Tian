@@ -10,7 +10,7 @@ does not show.
 - **home** picks three from this folder in a new random order every time the page loads, and does not scroll.
 - **home** and **photo dump** show photos the same way: same size and shape, same gap, same black and white, the same caption ("35mm"; no numbers, no dates).
 - Photos show in black and white. With the mouse over one, it fades to its original colour and fades back when the mouse leaves, so keep the colour in the files you add.
-- **photo dump** shows the eight newest, judged by file name. Name files so newer ones sort later, for example `2026-11-03-subway.jpg`.
+- **photo dump** shows the ten newest, judged by file name. Name files so newer ones sort later, for example `2026-11-03-subway.jpg`.
 - The file name, without the date and extension, is used as the photo's description for screen readers.
 
 Until this folder has photos, the pages show grey stand-in frames.
