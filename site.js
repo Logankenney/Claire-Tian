@@ -39,7 +39,9 @@ const describe = name => name.replace(/\.[^.]+$/, '').replace(/^\d{4}[-_.]?\d{2}
 const NOTE = '35mm';
 const figure = (name, note) => {
   const f = document.createElement('figure');
-  const frame = document.createElement('div'); frame.className = 'frame fit';
+  // the frame is a link: a click opens that photo's own page, with its date, location, camera and film
+  const frame = document.createElement('a'); frame.className = 'frame fit';
+  frame.href = 'photo.html?p=' + encodeURIComponent(name); frame.setAttribute('aria-label', 'open ' + describe(name));
   const img = new Image(); img.src = 'photos/' + encodeURIComponent(name); img.alt = describe(name); img.loading = 'lazy';
   frame.append(img);
   const cap = document.createElement('figcaption');
@@ -78,4 +80,27 @@ if (recent) (async () => {
   if (!names.length) return;
   recent.querySelectorAll('figure').forEach(f => f.remove());
   names.forEach(name => recent.append(figure(name, NOTE)));
+})();
+
+// one photograph: photo.html?p=<file name>. its details are read from photos/details.json, where an entry is
+// named for one file, or for a whole set (the file name without its number). what is not written there stays a dash.
+const single = document.querySelector('.one');
+if (single) (async () => {
+  const q = new URLSearchParams(location.search);
+  const name = q.get('p') || '';
+  const miss = () => { single.querySelector('.single').hidden = true; single.querySelector('.gone').hidden = false; };
+  if (!/^[\w.-]+$/.test(name) || !isPhoto(name)) return miss();
+  const img = single.querySelector('img');
+  img.onerror = miss; img.alt = describe(name); img.src = 'photos/' + encodeURIComponent(name);
+  document.title = describe(name) + ' · claire tian';
+  // "close" goes back to where the photo was opened from, or home when the page was opened directly
+  single.querySelector('.close').addEventListener('click', e => {
+    let here = false; try { here = new URL(document.referrer).origin === location.origin; } catch (err) {}
+    if (here && history.length > 1) { e.preventDefault(); history.back(); }
+  });
+  let all = {};
+  try { const r = await fetch('photos/details.json', { cache: 'no-cache' }); if (r.ok) all = await r.json(); } catch (e) {}
+  const set = name.replace(/\.[^.]+$/, '').replace(/[-_]\d+$/, '');
+  const facts = Object.assign({}, all[set], all[name]);
+  single.querySelectorAll('dd[data-k]').forEach(dd => { const v = String(facts[dd.dataset.k] || '').trim(); if (v) dd.textContent = v; });
 })();
