@@ -17,7 +17,8 @@ Until this folder has photos, the pages show grey stand-in frames.
 
 ## a page for each photo
 
-A click on any photo opens its own page (`photo.html?p=<file name>`) with four lines: date, location, camera and film.
+A click on a photo on **photo dump** opens its own page (`photo.html?p=<file name>`): the photo in full colour, with four
+lines: date, location, camera and film. Photos on **home** do not open anything.
 Those come from `photos/details.json`. An entry is named for a set of photos (the file name without its number, for
 example `2026-10-20-tokyo-on-film`), and covers every photo in that set. To give one photo its own details, add an
 entry named for that exact file (for example `2026-10-20-tokyo-on-film-08.webp`); what it says wins over the set.
