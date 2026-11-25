@@ -46,8 +46,13 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
 .still .intro { flex: 0 0 20vw; }
 .still figure { flex: 1 1 0; min-width: 0; max-width: calc(78vh * 2 / 3); }
 .still .frame { height: auto; width: 100%; }
-@media (min-width: 721px) {   /* the two lines of copy move under the menu so the frames get the whole width */
-  .still .intro { position: fixed; left: 20px; bottom: 80px; width: calc(var(--side) - 40px); padding: 0; }
+.still .intro .lead { font-size: 14px; }   /* "only feelings", a touch larger than the rest */
+@media (min-width: 721px) {   /* the two lines of copy stay put: one above the photos, one in the side panel, so the frames get the whole width */
+  .still .intro { display: contents; }
+  .still .intro p { position: fixed; left: 0; width: var(--side); padding: 0 12px; max-width: none; margin: 0; text-align: center; transform: translateY(-50%); }
+  .still .intro .lead { top: 8vh; left: var(--side); right: 3vw; width: auto; }   /* "only feelings": fixed above the photos, centred over the row */
+  .still .intro p:not(.lead) { top: calc(50vh - 9px); }                            /* level with the middle of the photos */
+  .still .intro .line { display: block; }   /* "candid when it" / "was still cool" on two lines */
 }
 figure { margin: 0; flex: 0 0 auto; display: flex; flex-direction: column; }
 figure:nth-of-type(even) { margin-bottom: 12vh; }   /* uneven on purpose */
@@ -82,6 +87,15 @@ figcaption { padding-top: 6px; font-size: 9px; color: var(--muted); display: fle
 .sheet a.go:hover { text-decoration: none; border-bottom-color: transparent; }
 /* recent shots: the same sideways strip as work, with dates */
 .note { font-size: 9px; }
+/* recent shots: laid out like home (frames level, centred top to bottom, copy under the menu), but the strip still scrolls sideways */
+.reel.recent { align-items: center; gap: 2.5vw; }
+.recent figure:nth-of-type(n) { margin-bottom: 0; }
+.recent .frame { height: min(78vh, calc(100vh - 80px)); }
+.recent .intro .lead { margin-bottom: 0; }
+.recent .intro p + p { margin-top: 14px; }       /* each line of copy is its own box */
+@media (min-width: 721px) {
+  .recent .intro { position: fixed; left: 20px; bottom: 80px; width: calc(var(--side) - 40px); padding: 0; }
+}
 
 /* contact: one prompt, one text box */
 form { display: grid; gap: 8px; margin-top: 24px; }
@@ -112,6 +126,7 @@ button.send:hover { border-bottom-color: transparent; }
   .intro.bare { flex-basis: 30vw; }
   .frame { height: 50vh; }
   figure:nth-of-type(even) { margin-bottom: 9vh; }
+  .recent .frame { height: 58vh; }
   .sheet { position: static; flex: 1; min-height: 0; padding: 50px 18px 18px 22vw; }
   .sheet h2 { margin-bottom: 18px; }
 }
