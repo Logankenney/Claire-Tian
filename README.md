@@ -9,18 +9,19 @@ A plain static site served by GitHub Pages at https://www.claire-tian.com. There
 | File | What it is |
 |---|---|
 | `index.html` | Home page: the two lines of copy and three frames, shrunk to fit; it does not scroll or change |
-| `work.html` | Work page: the sideways reel, ten frames in the strip, with the scroll arrow |
-| `recent.html` | Recent shots, newest first, in the same sideways strip, with the short about copy |
+| `recent.html` | Photo dump (menu name; the file keeps its old name so links still work), newest first, in the same sideways strip, with the short about copy |
 | `contact.html` | The contact address and the "i have an idea" box |
 | `styles.css` | All styling: light, black and white, lowercase |
-| `site.js` | Loads photos from `photos/` in a new random order on each page load, turns the work page when "work" is clicked, sideways scrolling |
-| `photos/` | Drop photographs here and the site shows them (see `photos/README.md`) |
+| `site.js` | Loads the photos listed in `photos.json` in a new random order on each page load, sideways scrolling |
+| `photos/` | The photographs, as small WebP copies; originals in `photos/originals/` (see `photos/README.md`) |
+| `photos.json` | The list of photos the pages show, written by `tools/photos.py` |
+| `tools/photos.py` | Makes WebP copies of new photos and rewrites `photos.json` |
 | `booking.js` | The contact address (`CONTACT_EMAIL`, one line) and the idea box |
 | `CNAME` | The domain GitHub Pages serves |
 
 To preview, run `python3 -m http.server` in this folder and open http://localhost:8000.
 
-**Still placeholder:** the grey frames on the home, work and recent shots pages, until `photos/` has photographs in it. The contact address `hello@claire-tian.com` is real and forwards to Claire.
+**Still placeholder:** the grey frames on the home and photo dump pages, until `photos/` has photographs in it. The contact address `hello@claire-tian.com` is real and forwards to Claire.
 
 **Booking:** the contact page has one prompt, "i have an idea", and one text box. The site has no server, so sending opens the visitor's email app with the idea filled in. A form service or a scheduling embed can replace it later.
 

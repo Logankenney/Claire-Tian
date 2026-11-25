@@ -1,6 +1,6 @@
 document.getElementById('yr').textContent = new Date().getFullYear();
 
-// let a normal mouse wheel move the work strip sideways on desktop
+// let a normal mouse wheel move the photo dump strip sideways on desktop
 // (nothing on the site scrolls down, so the wheel has nothing else to do)
 const reel = document.getElementById('work');
 const strip = document.querySelector('.reel');
@@ -9,25 +9,30 @@ if (strip && !strip.classList.contains('still')) strip.addEventListener('wheel',
 }, { passive: false });
 
 // ---- photographs -------------------------------------------------------------------------------
-// Anything dropped in the repo's photos/ folder shows up here: the list is read from GitHub.
-// If the list can't be read, or the folder is empty, the grey stand-in frames stay.
+// The photos are listed in photos.json, which tools/photos.py writes (see photos/README.md).
+// If that list can't be read, the folder listing is asked of GitHub instead.
+// If neither can be read, or the folder is empty, the grey stand-in frames stay.
 const REPO = 'Logankenney/Claire-Tian';
-const PER_TURN = 10;    // how many frames the work page's strip holds at once
 const HOME = 3;         // how many the home page shows
-const RECENT = 4;        // how many the recent shots page shows
+const RECENT = 4;        // how many the photo dump page shows
 
+const isPhoto = name => /\.(jpe?g|png|webp)$/i.test(name);
 async function photoList() {
   try {
-    const cached = sessionStorage.getItem('photos');
+    const cached = sessionStorage.getItem('photo-list');
     if (cached) return JSON.parse(cached);
   } catch (e) {}
+  let names = [];
   try {
+    const r = await fetch('photos.json', { cache: 'no-cache' });
+    if (r.ok) names = (await r.json()).filter(isPhoto).sort();
+  } catch (e) {}
+  if (!names.length) try {
     const r = await fetch('https://api.github.com/repos/' + REPO + '/contents/photos');
-    if (!r.ok) return [];
-    const names = (await r.json()).filter(f => f.type === 'file' && /\.(jpe?g|png|webp)$/i.test(f.name)).map(f => f.name).sort();
-    try { sessionStorage.setItem('photos', JSON.stringify(names)); } catch (e) {}
-    return names;
-  } catch (e) { return []; }
+    if (r.ok) names = (await r.json()).filter(f => f.type === 'file' && isPhoto(f.name)).map(f => f.name).sort();
+  } catch (e) {}
+  if (names.length) try { sessionStorage.setItem('photo-list', JSON.stringify(names)); } catch (e) {}
+  return names;
 }
 const describe = name => name.replace(/\.[^.]+$/, '').replace(/^\d{4}[-_.]?\d{2}[-_.]?\d{0,2}[-_.]?/, '').replace(/[-_]+/g, ' ').trim() || 'photograph';
 const figure = (name, n, note) => {
@@ -42,12 +47,7 @@ const figure = (name, n, note) => {
   return f;
 };
 
-// home and work draw from the photos folder in a new random order on every page load.
-// work: ten frames in the strip. Clicking "work" moves ten further through that order and wraps
-// round, so the strip always holds ten (or every photo, when the folder has fewer). No timer.
-// home: three frames, still.
-const workLink = document.querySelector('nav a[href="work.html"]');
-const turning = reel && reel.classList.contains('turning');
+// home: three frames, still, drawn from the photos folder in a new random order on every page load.
 if (reel) (async () => {
   const names = await photoList();
   if (names.length) {
@@ -56,9 +56,8 @@ if (reel) (async () => {
   }
   const figs = [...reel.querySelectorAll('figure')];
   for (let i = figs.length - 1; i > 0; i--) { const k = Math.floor(Math.random() * (i + 1)); [figs[i], figs[k]] = [figs[k], figs[i]]; }
-  const per = Math.min(turning ? PER_TURN : HOME, figs.length);
-  const turns = Math.max(1, Math.ceil(figs.length / per));
-  let turn = 0;
+  const per = Math.min(HOME, figs.length);
+  const turn = 0;
   const show = () => {
     const start = turn * per;
     figs.forEach((_, k) => {
@@ -70,10 +69,9 @@ if (reel) (async () => {
     reel.scrollLeft = 0;
   };
   show();
-  if (turning) workLink.addEventListener('click', e => { e.preventDefault(); turn = (turn + 1) % turns; show(); });
 })();
 
-// recent shots: the newest few, by file name
+// photo dump: the newest few, by file name
 const recent = document.querySelector('.recent');
 if (recent) (async () => {
   const names = (await photoList()).slice().reverse().slice(0, RECENT);
