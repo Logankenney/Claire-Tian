@@ -22,7 +22,8 @@ body {
   overflow: hidden;
 }
 a { color: inherit; text-decoration: none; }
-a:hover, a[aria-current] { text-decoration: line-through; }
+a:hover { text-decoration: line-through; }
+a[aria-current], a[aria-current]:hover { text-decoration: none; }   /* the page you are on: no strike, just full black (see nav below) */
 ::selection { background: var(--ink); color: var(--paper); }
 
 /* sidebar: small, top corner, nothing friendly about it */
@@ -40,11 +41,6 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
   overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
 }
 .reel::-webkit-scrollbar { display: none; }
-.intro { flex: 0 0 26vw; align-self: flex-end; padding: 0 0 6px; color: var(--muted); }
-.intro p { margin: 0; max-width: 30ch; }
-.intro .lead { color: var(--ink); margin-bottom: 6px; }
-.intro .hint { margin-top: 14px; }
-.intro.bare { flex-basis: 8vw; }
 /* home: three frames, still, as large as the window allows and centred top to bottom; nothing scrolls. */
 .reel.still { overflow: hidden; justify-content: center; padding-right: 3vw; }
 @media (min-width: 721px) {
@@ -89,21 +85,11 @@ figcaption { padding-top: 6px; font-size: 9px; color: var(--muted); display: fle
 .sheet a.go:hover { text-decoration: none; border-bottom-color: transparent; }
 /* recent shots: the same sideways strip as work, with dates */
 .note { font-size: 9px; }
-/* recent shots: laid out like home (frames level, centred top to bottom, copy under the menu), but the strip still scrolls sideways */
-.recent .intro .lead { margin-bottom: 0; }
-.recent .intro p + p { margin-top: 14px; }       /* each line of copy is its own box */
-.recent .mid { text-align: center; margin-bottom: 14px; }   /* the two lines of copy: text centred */
-.recent .mid p { max-width: none; }
-.recent .intro .top { font-size: 14px; text-align: center; margin-bottom: 14px; }   /* "only feelings", a touch larger than the rest */
-.recent .intro .under { text-align: center; }
+/* photo dump: laid out like home (frames level, centred top to bottom), but the strip scrolls sideways. one line of copy sits over the photos; nothing beside or under them */
+.over { margin: 0; font-size: 14px; text-align: center; color: var(--ink); }
 @media (min-width: 721px) {
-  .recent .intro { position: fixed; left: 20px; bottom: 80px; width: calc(var(--side) - 40px); padding: 0; }
-  /* "only feelings" above the photos and "analog when it was still cool" under them, each on one line, centred over the row; they stay put while the strip moves */
-  .recent .intro .top, .recent .intro .under { position: fixed; left: var(--side); right: 3vw; max-width: none; margin: 0; white-space: nowrap; transform: translateY(-50%); }
-  .recent .intro .top { top: calc((50vh - var(--row-half)) / 2); }
-  .recent .intro .under { top: min(calc(50vh + var(--row-half) + 4vh), calc(100vh - 12px)); }
-  /* the two lines of copy sit beside the pictures, centred top to bottom against them (the caption under a frame is 21px) */
-  .recent .mid { position: fixed; left: 20px; width: calc(var(--side) - 40px); top: calc(50vh - 10px); transform: translateY(-50%); margin: 0; }
+  /* on one line, centred over the row, half way between the top of the window and the photos; it stays put while the strip moves */
+  .over { position: fixed; left: var(--side); right: 3vw; top: calc((50vh - var(--row-half)) / 2); transform: translateY(-50%); white-space: nowrap; }
 }
 
 /* contact: one prompt, one text box */
@@ -133,13 +119,15 @@ button.send:hover { border-bottom-color: transparent; }
   nav { display: flex; flex-wrap: wrap; gap: 0 14px; }
   .foot { display: none; }
   .reel { position: static; flex: 1; min-height: 0; gap: 12vw; padding: 34px 18vw 18px 18px; }
-  .intro { flex: 0 0 62vw; }
   :root { --frame-h: min(58vh, 120vw); --frame-gap: 8vw; }
   .reel.still { padding: 18px; }   /* home: the one photo, in the middle */
   .still figure:nth-of-type(n+2) { display: none; }     /* a phone has room for one */
-  .intro.bare { flex-basis: 30vw; }
   .frame { height: 50vh; }
   figure:nth-of-type(even) { margin-bottom: 9vh; }
+  /* photo dump: the strip is as tall as its photos and sits half way down what is left; the line of copy is centred in the space above it */
+  .dump .over { flex: 1 1 0; display: flex; align-items: center; justify-content: center; padding: 0 18px; }
+  .dump .reel { flex: none; padding: 0 18vw 0 18px; }
+  body.dump::after { content: ""; flex: 1 1 0; }
   .sheet { position: static; flex: 1; min-height: 0; padding: 50px 18px 18px 22vw; }
   .sheet h2 { margin-bottom: 18px; }
   .sheet.contact { padding: 24px 18px; }
