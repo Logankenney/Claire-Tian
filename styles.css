@@ -51,8 +51,14 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
   .still .intro { display: contents; }
   .still .intro p { position: fixed; left: 0; width: var(--side); padding: 0 12px; max-width: none; margin: 0; text-align: center; transform: translateY(-50%); }
   .still .intro .lead { top: 8vh; left: var(--side); right: 3vw; width: auto; }   /* "only feelings": fixed above the photos, centred over the row */
-  .still .intro p:not(.lead) { top: calc(50vh - 9px); }                            /* level with the middle of the photos */
-  .still .intro .line { display: block; }   /* "candid when it" / "was still cool" on two lines */
+  /* where the home photos sit: three frames share the row (100vw less the menu, the right margin and two gaps),
+     each 2 by 3 and never taller than 78vh, centred top to bottom with a caption under each */
+  .home { --frame-h: min(78vh, 46vw - 115px); --row-half: calc((var(--frame-h) + 21px) / 2); }
+  .still .intro p:not(.lead) {   /* "candid when it was still cool": one line under the photos, centred like "only feelings" */
+    top: min(calc(50vh + var(--row-half) + 4vh), calc(100vh - 28px));
+    left: var(--side); right: 3vw; width: auto; white-space: nowrap;
+  }
+  .home nav { position: fixed; left: 20px; top: calc(50vh - var(--row-half) - 4px); }   /* menu: top level with the top of the photos */
 }
 figure { margin: 0; flex: 0 0 auto; display: flex; flex-direction: column; }
 figure:nth-of-type(even) { margin-bottom: 12vh; }   /* uneven on purpose */
