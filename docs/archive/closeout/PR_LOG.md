@@ -37,5 +37,5 @@ Compiled 2026-11-25 at project closeout from the git history of `Logankenney/Cla
 ## Notes
 
 - Rev is the Jarvis Document Control revision number. Revisions count from Rev 0 in merge order, so they follow the PR numbers except near the end: PR #24 (photo pages) was opened at 14:36 and held for a choice between three looks, and merged at 22:38 after PRs #25 and #26, so it is Rev 25.
-- A mirror push of the repository to a new home carries the commits, branches and tags but not the pull requests themselves. This log is the record of them if the repository is ever mirrored rather than transferred.
+- Pushing a copy of the repository to a new home carries the commits, branches and tags but not the pull requests themselves. This log is the record of them if the repository is ever mirrored rather than transferred.
 - Merge commits are authored as `Logankenney` on GitHub. From 09:40 UTC they were merged under the standing rule "auto merge all open pr's moving forward".

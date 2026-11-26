@@ -102,7 +102,10 @@ set "R=%OUT%\MOVE_README.txt"
 >>"%R%" echo OPTION B: PUSH A COPY TO A NEW, EMPTY REPOSITORY (keeps all history, not the pull requests)
 >>"%R%" echo   1. Create a new empty repository on GitHub. Do not add a README or a licence to it.
 >>"%R%" echo   2. Open a Command Prompt in this folder and run, with your new address in place of NEW_URL:
->>"%R%" echo        git -C repo-mirror.git push --mirror NEW_URL
+>>"%R%" echo        git -C repo-mirror.git push NEW_URL --all
+>>"%R%" echo        git -C repo-mirror.git push NEW_URL --tags
+>>"%R%" echo      Use these two commands and not "push --mirror": the mirror also holds GitHub's own
+>>"%R%" echo      pull request refs, which a new repository refuses, and --mirror would report errors for them.
 >>"%R%" echo      If repo-mirror.git is missing, rebuild it from the bundle first:
 >>"%R%" echo        git clone --mirror %NAME%-full-history.bundle repo-mirror.git
 >>"%R%" echo   3. The pull requests do not travel with a push. logs\PR_LOG.md is the record of them.

@@ -1,6 +1,6 @@
 # Claire-Tian closeout package
 
-Made on 2026-11-25 when the project was resolved, with `main` at `45c71dd` (Rev 26, PR #27). The site stays live at https://www.claire-tian.com; nothing here changes it, and nothing has been moved.
+Made on 2026-11-25 when the project was resolved, with `main` at `45c71dd` (Rev 26, PR #27). The logs cover everything up to that point; the pull request that adds this folder is the next revision, Rev 27, and changes no page of the site. The site stays live at https://www.claire-tian.com; nothing here changes it, and nothing has been moved.
 
 ## What is in this folder
 
@@ -36,7 +36,7 @@ The batch file only reads from GitHub. It does not push, transfer or delete anyt
 Two ways, both written out step by step in the `MOVE_README.txt` the batch file makes:
 
 - **Transfer** (GitHub > Settings > General > Danger Zone > Transfer ownership). Keeps the pull requests, issues and settings, and GitHub redirects the old address.
-- **Mirror push** to a new empty repository (`git -C repo-mirror.git push --mirror NEW_URL`). Keeps all history, but not the pull requests; `PR_LOG.md` is the record of them.
+- **Push a copy** to a new empty repository (`git -C repo-mirror.git push NEW_URL --all`, then the same with `--tags`). Keeps all history, but not the pull requests; `PR_LOG.md` is the record of them.
 
 After either one, put the site back online in the new repository: Settings > Pages > Deploy from a branch, `main`, `/ (root)`; custom domain `www.claire-tian.com`; then Enforce HTTPS. A custom domain can sit on one repository at a time, so remove it from the old one first. If the owner changes, the `www` CNAME at GoDaddy must point to `NEWOWNER.github.io`; the four `A` records stay as they are.
 
