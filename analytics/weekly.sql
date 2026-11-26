@@ -39,8 +39,8 @@ select jsonb_build_object(
     'ig_clicks', (select count(*) from prev where event = 'ig_click'),
     'contact_sends', (select count(*) from prev where event = 'contact_send')),
   'by_day', coalesce((select jsonb_agg(d order by d->>'day') from (
-      select jsonb_build_object('day', (at at time zone 'America/New_York')::date, 'views', count(*), 'visitors', count(distinct visitor)) d
-      from v group by 1) s), '[]'),
+      select jsonb_build_object('day', day, 'views', count(*), 'visitors', count(distinct visitor)) d
+      from (select (at at time zone 'America/New_York')::date as day, visitor from v) x group by day) s), '[]'),
   'pages', coalesce((select jsonb_agg(r order by (r->>'views')::int desc) from (
       select jsonb_build_object('page', v.page, 'views', count(*), 'visitors', count(distinct v.visitor),
         'avg_seconds', (select round(avg(l.seconds)) from lv l where l.page = v.page and l.seconds between 0 and 3600),
@@ -50,8 +50,9 @@ select jsonb_build_object(
       select jsonb_build_object('photo', label, 'opens', count(*)) r from h where event = 'photo_open'
       group by label order by count(*) desc limit 10) s), '[]'),
   'sources', coalesce((select jsonb_agg(r) from (
-      select jsonb_build_object('source', coalesce(nullif(utm_source,''), nullif(referrer_host,''), 'direct'), 'views', count(*), 'visitors', count(distinct visitor)) r
-      from v group by 1 order by count(*) desc limit 15) s), '[]'),
+      select jsonb_build_object('source', src, 'views', count(*), 'visitors', count(distinct visitor)) r
+      from (select coalesce(nullif(utm_source,''), nullif(referrer_host,''), 'direct') as src, visitor from v) x
+      group by src order by count(*) desc limit 15) s), '[]'),
   'campaigns', coalesce((select jsonb_agg(r) from (
       select jsonb_build_object('campaign', utm_campaign, 'medium', utm_medium, 'views', count(*)) r
       from v where coalesce(utm_campaign,'') <> '' group by utm_campaign, utm_medium order by count(*) desc limit 10) s), '[]'),
