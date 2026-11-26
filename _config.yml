@@ -1,0 +1,14 @@
+# GitHub Pages: what is served from this repo.
+# These files run the site behind the scenes (scripts, notes, the analytics setup, the photo originals); they stay
+# in the repo but are not published at www.claire-tian.com. Everything else is published exactly as it is: no page
+# here has front matter, so none is changed by the build.
+# To undo: delete this file and put back the empty `.nojekyll` file (see README.md).
+exclude:
+  - README.md
+  - docs/
+  - tools/
+  - analytics/
+  - photos/originals/
+  - photos/README.md
+  - Gemfile
+  - Gemfile.lock

@@ -31,6 +31,8 @@ To preview, run `python3 -m http.server` in this folder and open http://localhos
 
 **Deploying:** Settings > Pages > "Deploy from a branch", branch `main`, folder `/ (root)`. Every merge to `main` then publishes on its own.
 
+**What is published:** everything in `main` except the files listed under `exclude` in `_config.yml` (this README, `docs/`, `tools/`, `analytics/`, `photos/originals/` and `photos/README.md`), which stay in the repo but are not on the live site. GitHub Pages runs a Jekyll build to apply that list; no page has front matter, so every other file is published byte for byte. To publish everything again, delete `_config.yml` and add back an empty `.nojekyll` file.
+
 **Colour:** photographs are shown black and white by one line at the top of `styles.css` (`--photo`). Change it to `--photo: none;` to show them in colour.
 
 **Visitor log and weekly report:** every page loads `stats.js`, which posts to the Supabase project `claire-tian-analytics`. Visit any page with `?notrack` to stop counting your own browser (`?track` to start again). Every Friday at 8 AM Eastern a scheduled Claude task reads the week's numbers, runs `tools/weekly_report.py`, files the report in Jarvis Document Control (projects/Claire-Tian/Weekly Reports) and emails a link to it.
