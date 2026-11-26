@@ -32,6 +32,8 @@ a[aria-current], a[aria-current]:hover { text-decoration: none; }   /* the page 
 nav a { display: block; color: var(--muted); white-space: nowrap; }
 nav a:hover, nav a[aria-current] { color: var(--ink); }
 .foot { margin-top: auto; font-size: 9px; color: var(--muted); line-height: 1.7; }
+.foot .pv { color: inherit; }
+.foot .pv:hover, .foot .pv[aria-current] { color: var(--ink); }
 
 /* work: a sideways strip of frames, no numbers, no titles */
 .reel {
@@ -148,7 +150,8 @@ button.send:hover { border-bottom-color: transparent; }
   .side { position: static; flex: none; width: auto; padding: 18px 18px 0; display: block; }
   .name { margin: 0 0 10px; }
   nav { display: flex; flex-wrap: wrap; gap: 0 14px; }
-  .foot { display: none; }
+  .foot { position: fixed; left: 18px; bottom: 17px; font-size: 0; line-height: 1; z-index: 4; }   /* phones: only "privacy" shows, bottom left, opposite "ig" */
+  .foot .pv { font-size: 9px; }
   .reel { position: static; flex: 1; min-height: 0; gap: 12vw; padding: 34px 18vw 18px 18px; }
   :root { --frame-h: min(58vh, 120vw); --frame-gap: 8vw; }
   .reel.still { padding: 18px; }   /* home: the one photo, in the middle */
