@@ -14,7 +14,7 @@
 
   const file = location.pathname.split('/').pop() || 'index.html';
   const page = document.title.startsWith('nothing') ? '404'
-    : ({ 'index.html': 'home', 'recent.html': 'photo dump', 'contact.html': 'contact', 'photo.html': 'photo', 'privacy.html': 'privacy' }[file] || file);
+    : ({ 'index.html': 'home', 'recent.html': 'photo dump', 'contact.html': 'contact', 'photo.html': 'photo', 'privacy.html': 'privacy', 'legal.html': 'legal' }[file] || file);
   let ref = '';
   try { const r = new URL(document.referrer); if (r.hostname !== location.hostname) ref = r.hostname; } catch (e) {}
   const base = {
