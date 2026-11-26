@@ -55,7 +55,7 @@ Photos show in black and white and fade to their own colour while the mouse is o
 
 ### 5. Layout rounds (12:00 to 13:29)
 
-Logan asks to edit the design and to see the page only after all his comments are in. Twelve pull requests follow in ninety minutes:
+Logan asks to edit the design and to see the page only after all his comments are in. Eleven pull requests follow in ninety minutes:
 
 - 12:02 PR #9 (Rev 8): home images about 60% larger, level and centred.
 - 12:07 PR #10 (Rev 9): contact is only the idea box; "film. nyc." leaves the footer.
