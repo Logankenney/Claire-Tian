@@ -31,3 +31,8 @@ name, and never changes what is already written.
 ## people
 
 people appear only in candid or unposed photographs. no posed portraits: nobody looking into the lens, arranged for the picture. if a photo is unclear, leave it out and ask.
+
+## stills from reels
+
+files named `...-reel-NN` are full frames taken from Claire's instagram reels (2026-11-26), cropped to 2 by 3. none has
+text in it (titles, captions, signs or watermarks), and none is a posed portrait.
