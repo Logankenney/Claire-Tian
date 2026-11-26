@@ -134,6 +134,10 @@ button.send:hover { border-bottom-color: transparent; }
 .sheet.contact { inset: 0 0 0 var(--side); padding: 22px 24px 22px 0; justify-content: center; align-items: flex-start; text-align: left; }
 .sheet.contact form { width: 34ch; max-width: 100%; margin-top: 0; }
 
+/* instagram: two letters, tiny and grey, alone in the bottom right corner of every page. no icon. */
+.ig { position: fixed; right: 24px; bottom: 18px; font-size: 9px; color: var(--muted); z-index: 4; }
+.ig:hover { color: var(--ink); }
+
 @media (max-width: 1000px) {   /* narrower windows: sized so two share the row */
   :root { --frame-h: min(78vh, 70vw - 175px); }
   .still figure:nth-of-type(n+3) { display: none; }
@@ -163,6 +167,7 @@ button.send:hover { border-bottom-color: transparent; }
   .plate .single { flex-direction: column; align-items: stretch; gap: 12px; }
   .plate .facts { width: auto; }
   .close { top: 20px; right: 18px; }
+  .ig { right: 18px; bottom: 14px; }
   .sheet { position: static; flex: 1; min-height: 0; padding: 50px 18px 18px 22vw; }
   .sheet h2 { margin-bottom: 18px; }
   .sheet.contact { padding: 24px 18px; }
