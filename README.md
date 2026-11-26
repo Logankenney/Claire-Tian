@@ -18,6 +18,10 @@ A plain static site served by GitHub Pages at https://www.claire-tian.com. There
 | `tools/photos.py` | Makes WebP copies of new photos and rewrites `photos.json` |
 | `booking.js` | The contact address (`CONTACT_EMAIL`, one line) and the idea box |
 | `CNAME` | The domain GitHub Pages serves |
+| `stats.js` | The visitor log: sends each page view, time on page, sideways scroll and clicks (photos, ig, send) to the Supabase function `hit`. No cookies, nothing stored on the device, no ip addresses kept |
+| `privacy.html` | What the visitor log counts and keeps, linked as "privacy" under the footer (bottom left on phones) |
+| `analytics/` | The Supabase side: `schema.sql` (table and `record_hit`), `weekly.sql` (`weekly_report_data`), `hit/index.ts` (the edge function) |
+| `tools/weekly_report.py` | Writes the Friday site report from `weekly_report_data` JSON, with SEO checks read from these files |
 
 To preview, run `python3 -m http.server` in this folder and open http://localhost:8000.
 
@@ -28,3 +32,5 @@ To preview, run `python3 -m http.server` in this folder and open http://localhos
 **Deploying:** Settings > Pages > "Deploy from a branch", branch `main`, folder `/ (root)`. Every merge to `main` then publishes on its own.
 
 **Colour:** photographs are shown black and white by one line at the top of `styles.css` (`--photo`). Change it to `--photo: none;` to show them in colour.
+
+**Visitor log and weekly report:** every page loads `stats.js`, which posts to the Supabase project `claire-tian-analytics`. Visit any page with `?notrack` to stop counting your own browser (`?track` to start again). Every Friday at 8 AM Eastern a scheduled Claude task reads the week's numbers, runs `tools/weekly_report.py`, files the report in Jarvis Document Control (projects/Claire-Tian/Weekly Reports) and emails a link to it.
