@@ -55,7 +55,7 @@ Photos show in black and white and fade to their own colour while the mouse is o
 
 ### 5. Layout rounds (12:00 to 13:29)
 
-Logan asks to edit the design and to see the page only after all his comments are in. Twelve pull requests follow in ninety minutes:
+Logan asks to edit the design and to see the page only after all his comments are in. Eleven pull requests follow in ninety minutes:
 
 - 12:02 PR #9 (Rev 8): home images about 60% larger, level and centred.
 - 12:07 PR #10 (Rev 9): contact is only the idea box; "film. nyc." leaves the footer.
@@ -76,15 +76,16 @@ Logan asks to edit the design and to see the page only after all his comments ar
 - 14:16 PR #21 (Rev 20): photo numbers removed from captions across the site.
 - 14:25 PR #22 (Rev 21): photos fade from black and white to their original colour under the mouse, and back.
 - 14:32 PR #23 (Rev 22): the photo dump strip shows the ten newest photos.
-- 14:36 PR #24 opens: a page for each photo with date, location, camera and film, offered in three looks (A "log", B "edge", C "rebate") for Logan to choose from. It waits for his choice.
+- 14:26 Logan asks for a page for each photo and, for the first time, for a pull request that is not auto-merged. 14:36 PR #24 opens with the pages in three looks (A "log", B "edge", C "rebate") and waits for his choice.
 - 14:41 PR #25 (Rev 23): the colour holds across the whole photo tile until the mouse leaves it.
 - 15:40 PR #26 (Rev 24): the photo dump line moves from over the photos to under them.
-- 22:29 to 22:38 Logan chooses look A. Looks B and C are removed and PR #24 merges (Rev 25).
+- 22:25 Logan chooses look A on a decision card. Looks B and C are removed. 22:38 Logan writes "merge pr 24" and it merges (Rev 25).
 - 22:44 to 22:47 Logan: photos on home should not open anything. PR #27 (Rev 26): photo pages open from photo dump only, and a photo on its own page shows in colour.
 
 ### 7. Closeout (23:56)
 
-- 23:56 Logan: "this came out great", and asks for the project to be resolved for now with a history log, action log, edit log, PR log, compiled text files and a zip batch that prepares for a possible repository move. This folder is that package.
+- 23:56 Logan: "this came out great", and asks for the project to be resolved for now with a history log, action log, edit log, PR log, compiled text files and a zip batch that prepares for a possible repository move. This folder is that package (PR #28, Rev 27, merged 2026-11-26 00:02).
+- 2026-11-26 01:16 to 01:20 Logan asks for a PDF presentation of the whole project, step by step, with prompts and responses together; for it to be added to the hand off package; and for two versions of the package, one for Windows and Linux and one for macOS. `PROJECT_STORY.pdf` and the Linux and macOS scripts are added as Rev 28.
 
 ## Design previews
 

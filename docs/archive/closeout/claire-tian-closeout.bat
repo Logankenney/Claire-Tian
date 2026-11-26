@@ -9,7 +9,7 @@ rem  Double-click this file, or run it from a Command Prompt. It:
 rem    1. makes a full mirror of the GitHub repository (every branch and tag),
 rem    2. packs that mirror into one git bundle file and verifies it,
 rem    3. exports the site files as they stand on main,
-rem    4. copies the closeout logs to the top of the archive,
+rem    4. copies the closeout logs and the project story PDF to the top,
 rem    5. adds a copy of the Claude project's shared folder, if you put one
 rem       next to this file in a folder named "project-files",
 rem    6. writes a manifest with a SHA-256 checksum for every file,
@@ -63,6 +63,7 @@ echo [4/8] Copying the closeout logs...
 if exist "%OUT%\site-files\docs\archive\closeout\*.md" (
     mkdir "%OUT%\logs"
     copy /y "%OUT%\site-files\docs\archive\closeout\*.md" "%OUT%\logs\" >nul
+    if exist "%OUT%\site-files\docs\archive\closeout\*.pdf" copy /y "%OUT%\site-files\docs\archive\closeout\*.pdf" "%OUT%\logs\" >nul
 ) else (
     echo       No closeout logs on main yet. Skipped.
 )
@@ -87,7 +88,7 @@ set "R=%OUT%\MOVE_README.txt"
 >>"%R%" echo   %NAME%-full-history.bundle   the whole repository in one file: every commit, branch and tag
 >>"%R%" echo   repo-mirror.git\             the same thing as a bare mirror clone, ready to push
 >>"%R%" echo   site-files\                  the site exactly as it stands on main
->>"%R%" echo   logs\                        history, action, edit and PR logs, compiled text, manifest
+>>"%R%" echo   logs\                        project story PDF, history, action, edit and PR logs, compiled text, manifest
 >>"%R%" echo   project-files\               the Claude project shared folder, if one was supplied
 >>"%R%" echo   GIT_LOG.txt, GIT_REFS.txt    every commit and every branch, as plain text
 >>"%R%" echo   FILE_MANIFEST.txt            SHA-256, size and path of every file in this archive

@@ -61,7 +61,8 @@ What was done, when, and by whom. Compiled on 2026-11-25 from the project chat, 
 | 22:29 to 22:38 | Look A chosen; looks B and C removed; PR #24 merged | Logan, Site thread | Rev 25, filed by Jarvis PR #253 |
 | 22:44 to 22:47 | Photo pages limited to photo dump; photo shown in colour on its page | Logan, Site thread | PR #27, Rev 26, filed by Jarvis PR #254 |
 | 23:56 | Asked for the project to be resolved with a closeout package | Logan | Closeout thread created |
-| 23:57 onward | History, action, edit and PR logs, compiled text, manifest and Windows batch written | Closeout thread | This folder |
+| 23:57 onward | History, action, edit and PR logs, compiled text, manifest and Windows batch written | Closeout thread | This folder; PR #28, Rev 27, filed by Jarvis PR #261 |
+| 26 Nov 01:16 to 01:20 | Asked for a PDF presentation of the project, for it to join the hand off package, and for two versions of the package (Windows and Linux; macOS) | Logan | `PROJECT_STORY.pdf`, `claire-tian-closeout.sh`, `claire-tian-closeout.command`; Rev 28 |
 
 ## Notes on attribution
 
