@@ -35,6 +35,17 @@ nav a:hover, nav a[aria-current] { color: var(--ink); }
 .foot .pv { color: inherit; }
 .foot .pv:hover, .foot .pv[aria-current] { color: var(--ink); }
 
+/* legal and privacy: long text set in columns that run sideways, like everything else */
+.legal { position: fixed; inset: 0 0 0 calc(var(--side) + 4vw); padding: 22px 8vw 46px 0; height: 100vh; box-sizing: border-box;
+  column-width: 34ch; column-gap: 6vw; column-fill: auto; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; outline: none; }
+.legal::-webkit-scrollbar { display: none; }
+.legal h2 { font: inherit; color: var(--muted); margin: 0 0 6px; }
+.legal h3 { font: inherit; margin: 18px 0 6px; break-after: avoid; }
+.legal p { margin: 0 0 10px; font-size: 11px; line-height: 1.7; }
+.legal .when, .legal .end { color: var(--muted); }
+.legal a { border-bottom: 1px solid var(--muted); }
+.legal .nw { white-space: nowrap; }
+
 /* work: a sideways strip of frames, no numbers, no titles */
 .reel {
   position: fixed; inset: 0 0 0 var(--side);
@@ -174,6 +185,7 @@ button.send:hover { border-bottom-color: transparent; }
   .sheet { position: static; flex: 1; min-height: 0; padding: 50px 18px 18px 22vw; }
   .sheet h2 { margin-bottom: 18px; }
   .sheet.contact { padding: 24px 18px; }
+  .legal { position: static; flex: 1; min-height: 0; height: auto; padding: 18px 18vw 40px 18px; column-width: 70vw; }
 }
 @media (max-height: 520px) { .sheet, .sheet.contact { overflow-y: auto; justify-content: flex-start; } }   /* a phone on its side still reaches "send" */
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
