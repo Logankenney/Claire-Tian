@@ -19,7 +19,8 @@ A plain static site served by GitHub Pages at https://www.claire-tian.com. There
 | `booking.js` | The contact address (`CONTACT_EMAIL`, one line) and the idea box |
 | `CNAME` | The domain GitHub Pages serves |
 | `stats.js` | The visitor log: sends each page view, time on page, sideways scroll and clicks (photos, ig, send) to the Supabase function `hit`. No cookies, nothing stored on the device, no ip addresses kept |
-| `privacy.html` | What the visitor log counts and keeps, linked as "privacy" under the footer (bottom left on phones) |
+| `privacy.html` | One line on the visitor log and a "privacy" link to `legal.html`; linked as "privacy" under the footer (bottom left on phones) |
+| `legal.html` | The full legal and privacy page (privacy notice and terms of use). Reached only from the link on `privacy.html`: not in the menu or footer, `noindex` |
 | `analytics/` | The Supabase side: `schema.sql` (table and `record_hit`), `weekly.sql` (`weekly_report_data`), `hit/index.ts` (the edge function) |
 | `tools/weekly_report.py` | Writes the Friday site report from `weekly_report_data` JSON, with SEO checks read from these files |
 
