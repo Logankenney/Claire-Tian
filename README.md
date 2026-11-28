@@ -18,11 +18,12 @@ A plain static site served by GitHub Pages at https://www.claire-tian.com. There
 | `tools/photos.py` | Makes WebP copies of new photos and rewrites `photos.json` |
 | `booking.js` | The contact address (`CONTACT_EMAIL`, one line) and the idea box |
 | `CNAME` | The domain GitHub Pages serves |
-| `stats.js` | The visitor log: sends each page view, time on page, sideways scroll and clicks (photos, ig, send) to the Supabase function `hit`. No cookies, nothing stored on the device, no ip addresses kept |
+| `stats.js` | The visitor log: sends each page view, time on page, sideways scroll and clicks (photos, ig, send) to the Supabase function `hit`. No cookies; the server keeps each visitor's ip address (deleted after 400 days). Browser storage is listed in `docs/cookies-register.json` |
 | `privacy.html` | One line on the visitor log and a "privacy" link to `legal.html`; linked as "privacy" under the footer (bottom left on phones) |
 | `legal.html` | The full legal and privacy page (privacy notice and terms of use). Reached only from the link on `privacy.html`: not in the menu or footer, `noindex` |
-| `analytics/` | The Supabase side: `schema.sql` (table and `record_hit`), `weekly.sql` (`weekly_report_data`), `hit/index.ts` (the edge function) |
-| `tools/weekly_report.py` | Writes the Friday site report from `weekly_report_data` JSON, with SEO checks read from these files |
+| `analytics/` | The Supabase side: `schema.sql` (table and `record_hit`), `weekly.sql` (`weekly_report_data`), `hit/index.ts` (the edge function), `ip.sql` (ip addresses, country and network, `weekly_access_data`, the ML visitor code) |
+| `tools/weekly_report.py` | Writes the Friday site report (status board, issues with sub-tasks, priority emails, agent processes, traffic, visitor access by ip address, cookies register check, SEO, competition) from `weekly_report_data` + `weekly_access_data` JSON |
+| `docs/cookies-register.json` | The cookies register: every cookie and browser storage item the site sets and every outside service a page load reaches; the weekly report flags anything in the code that is not listed |
 
 To preview, run `python3 -m http.server` in this folder and open http://localhost:8000.
 
@@ -34,4 +35,6 @@ To preview, run `python3 -m http.server` in this folder and open http://localhos
 
 **Colour:** photographs are shown black and white by one line at the top of `styles.css` (`--photo`). Change it to `--photo: none;` to show them in colour.
 
-**Visitor log and weekly report:** every page loads `stats.js`, which posts to the Supabase project `claire-tian-analytics`. Visit any page with `?notrack` to stop counting your own browser (`?track` to start again). Every Friday at 8 AM Eastern a scheduled Claude task reads the week's numbers, runs `tools/weekly_report.py`, files the report in Jarvis Document Control (projects/Claire-Tian/Weekly Reports) and emails a link to it.
+**Visitor log and weekly report:** every page loads `stats.js`, which posts to the Supabase project `claire-tian-analytics`. Visit any page with `?notrack` to stop counting your own browser (`?track` to start again). Every Friday at 8 AM Eastern a scheduled Claude task reads the week's numbers, runs `tools/weekly_report.py`, files the report in Jarvis Document Control (projects/Claire-Tian/Reports/<date>), logs the week's visitor metadata to the Jarvis ML dataset `claire_tian_visitors` (ip addresses only as a one-way code), and emails a link to it.
+
+**Turning on ip addresses (once, after this is merged):** run `analytics/ip.sql` in the Supabase SQL editor, then redeploy the `hit` function from `analytics/hit/index.ts`. For country and network, make a free ipinfo.io account and add its token as the secret `IPINFO_TOKEN` (Supabase > Edge Functions > Secrets).

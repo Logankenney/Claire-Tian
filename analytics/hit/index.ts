@@ -1,5 +1,7 @@
 // Supabase edge function "hit": receives one visit record from stats.js and stores it.
-// The visitor's ip address is used only inside record_hit() to make a one-way code that changes every day; it is never stored.
+// The visitor's ip address is stored with the record (Logan 2026-11-28, "IP address, no cookie"; deleted after 400 days)
+// and still makes the daily visitor code. With the secret IPINFO_TOKEN set, the address's country and network are
+// looked up once at ipinfo.io Lite (free; country and network only, no city) and cached in ip_geo. No cookie is set.
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
@@ -32,6 +34,22 @@ function os(ua: string) {
   return "other";
 }
 
+const TOKEN = Deno.env.get("IPINFO_TOKEN") ?? "";
+const PRIVATE = /^(10\.|127\.|169\.254\.|172\.(1[6-9]|2\d|3[01])\.|192\.168\.|::1$|fc|fd|fe80)/i;
+
+async function where(ip: string): Promise<{ country: string | null; network: string | null }> {
+  const none = { country: null, network: null };
+  if (!TOKEN || !ip || PRIVATE.test(ip)) return none;
+  const { data: known } = await db.rpc("ip_known", { p_ip: ip });
+  if (known) return none;                                   // record_hit fills it from the cache
+  try {
+    const r = await fetch(`https://api.ipinfo.io/lite/${encodeURIComponent(ip)}?token=${TOKEN}`, { signal: AbortSignal.timeout(1500) });
+    if (!r.ok) return none;
+    const j = await r.json();
+    return { country: typeof j.country_code === "string" ? j.country_code : null, network: typeof j.as_name === "string" ? j.as_name : null };
+  } catch { return none; }
+}
+
 Deno.serve(async (req) => {
   const origin = req.headers.get("origin") ?? "";
   const cors = { "Access-Control-Allow-Origin": ALLOWED.test(origin) ? origin : "https://www.claire-tian.com" };
@@ -45,8 +63,11 @@ Deno.serve(async (req) => {
   } catch { return new Response(null, { status: 204, headers: cors }); }
   const ua = (req.headers.get("user-agent") ?? "").slice(0, 400);
   const ip = (req.headers.get("x-forwarded-for") ?? "").split(",")[0].trim();
+  const bot = BOT.test(ua) || !ua;
+  const geo = bot ? { country: null, network: null } : await where(ip);
   const { error } = await db.rpc("record_hit", {
-    p, p_ip: ip, p_ua: ua, p_bot: BOT.test(ua) || !ua, p_device: device(ua), p_browser: browser(ua), p_os: os(ua),
+    p, p_ip: ip, p_ua: ua, p_bot: bot, p_device: device(ua), p_browser: browser(ua), p_os: os(ua),
+    p_country: geo.country, p_network: geo.network,
   });
   if (error) console.error("record_hit", error.message);
   return new Response(null, { status: 204, headers: cors });
