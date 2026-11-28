@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>join · claire tian</title>
+<meta name="description" content="join claire tian: an email link, no password.">
+<link rel="canonical" href="https://www.claire-tian.com/account.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="claire tian">
+<meta property="og:title" content="join · claire tian">
+<meta property="og:description" content="join claire tian: an email link, no password.">
+<meta property="og:url" content="https://www.claire-tian.com/account.html">
+<meta property="og:image" content="https://www.claire-tian.com/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="three film photographs by claire tian">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="join · claire tian">
+<meta name="twitter:description" content="join claire tian: an email link, no password.">
+<meta name="twitter:image" content="https://www.claire-tian.com/og-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=32">
+</head>
+<body>
+  <aside class="side">
+    <h1 class="name"><a href="./">claire tian</a></h1>
+    <nav aria-label="Main">
+      <a href="recent.html">photo dump</a>
+      <a href="contact.html">contact... please don't</a>
+    </nav>
+    <div class="foot">© <span id="yr"></span> claire tian.<br>all rights reserved.<br><a class="pv" href="privacy.html">privacy</a> <a class="pv acct" href="account.html" aria-current="page">join</a></div>
+  </aside>
+  <a class="ig" href="https://www.instagram.com/maisonsumika/" target="_blank" rel="noopener" aria-label="claire tian on instagram">ig</a>
+
+  <main class="sheet contact account">
+    <form id="step-out" novalidate hidden>
+      <label for="email">join. your email</label>
+      <input id="email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" required>
+      <label class="tick"><input id="mk" type="checkbox"> <span id="mk-text">send me the odd email: new work, open dates. optional. stop any time.</span></label>
+      <button class="send" type="submit">send link</button>
+      <p class="small">no password. we email you a link and a code. by joining you agree to the <a href="legal.html">terms</a>.</p>
+      <p class="status" id="out-status" role="status" aria-live="polite"></p>
+    </form>
+
+    <form id="step-code" novalidate hidden>
+      <label for="code">check <span id="sent-to"></span>. click the link, or type the code</label>
+      <input id="code" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="10" spellcheck="false">
+      <button class="send" type="submit">sign in</button>
+      <p class="small"><button class="text" type="button" id="again">use another email</button></p>
+      <p class="status" id="code-status" role="status" aria-live="polite"></p>
+    </form>
+
+    <form id="step-in" hidden>
+      <p>signed in as <span id="who"></span>.</p>
+      <label class="tick"><input id="mk-on" type="checkbox"> send me the odd email: new work, open dates.</label>
+      <p class="small"><button class="text" type="button" id="out">sign out</button> &nbsp; <button class="text" type="button" id="delete">delete my account</button></p>
+      <p class="status" id="in-status" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+
+<script src="site.js?v=19"></script>
+<script src="auth.js?v=1"></script>
+<script src="stats.js?v=3" defer></script>
+<script src="account.js?v=1"></script>
+</body>
+</html>

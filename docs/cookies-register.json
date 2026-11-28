@@ -3,13 +3,67 @@
   "updated": "2026-11-28",
   "cookies": [],
   "storage": [
-    {"name": "ct-notrack", "type": "localStorage", "set_by": "stats.js", "purpose": "switches the visitor log off for this browser (opening any page with ?notrack; ?track removes it)", "kept": "until removed with ?track or the browser's site data is cleared", "category": "strictly necessary (a privacy choice)", "personal_data": "no"},
-    {"name": "photo-list", "type": "sessionStorage", "set_by": "site.js", "purpose": "remembers the list of photos while a tab is open so pages load faster", "kept": "until the tab is closed", "category": "strictly necessary (site function)", "personal_data": "no"}
+    {
+      "name": "ct-notrack",
+      "type": "localStorage",
+      "set_by": "stats.js",
+      "purpose": "switches the visitor log off for this browser (opening any page with ?notrack; ?track removes it)",
+      "kept": "until removed with ?track or the browser's site data is cleared",
+      "category": "strictly necessary (a privacy choice)",
+      "personal_data": "no"
+    },
+    {
+      "name": "photo-list",
+      "type": "sessionStorage",
+      "set_by": "site.js",
+      "purpose": "remembers the list of photos while a tab is open so pages load faster",
+      "kept": "until the tab is closed",
+      "category": "strictly necessary (site function)",
+      "personal_data": "no"
+    },
+    {
+      "name": "ct-auth",
+      "type": "localStorage",
+      "set_by": "auth.js",
+      "purpose": "keeps a member signed in after they join or sign in with an email link or code (account.html, crm.html). set only when someone signs in; removed on sign out or account deletion",
+      "kept": "until sign out (the sign-in itself refreshes hourly and lapses if unused)",
+      "category": "strictly necessary (sign-in)",
+      "personal_data": "yes: the member's email address, account id and sign-in tokens"
+    },
+    {
+      "name": "ct-join-mk",
+      "type": "sessionStorage",
+      "set_by": "account.js",
+      "purpose": "remembers the marketing tick box between sending the sign-in email and coming back to the page",
+      "kept": "until the tab is closed (cleared on sign-in)",
+      "category": "strictly necessary (site function)",
+      "personal_data": "no"
+    }
   ],
   "third_parties": [
-    {"name": "GitHub Pages", "what": "hosts the site", "receives": "ip address, browser details (as any web host)", "cookies": "none"},
-    {"name": "Google Fonts", "what": "serves the DM Mono typeface", "receives": "ip address, browser details", "cookies": "none"},
-    {"name": "Supabase", "what": "stores the visitor log (\"hit\" function)", "receives": "ip address, browser details, the visit record", "cookies": "none"},
-    {"name": "ipinfo.io", "what": "country and network of an ip address, once per address (only when the IPINFO_TOKEN secret is set)", "receives": "ip address", "cookies": "none"}
+    {
+      "name": "GitHub Pages",
+      "what": "hosts the site",
+      "receives": "ip address, browser details (as any web host)",
+      "cookies": "none"
+    },
+    {
+      "name": "Google Fonts",
+      "what": "serves the DM Mono typeface",
+      "receives": "ip address, browser details",
+      "cookies": "none"
+    },
+    {
+      "name": "Supabase",
+      "what": "stores the visitor log (\"hit\" function) and member accounts (supabase auth: sign-in emails, the crm)",
+      "receives": "ip address, browser details, the visit record; for members: email address, marketing choice, pages seen while signed in",
+      "cookies": "none"
+    },
+    {
+      "name": "ipinfo.io",
+      "what": "country and network of an ip address, once per address (only when the IPINFO_TOKEN secret is set)",
+      "receives": "ip address",
+      "cookies": "none"
+    }
   ]
 }

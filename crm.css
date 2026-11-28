@@ -1,0 +1,62 @@
+/* the crm: same paper, ink and type as the site, laid out as a tool. the window never scrolls; the list and the
+   person on the right scroll inside their own panes. */
+:root { --paper: #efe8d9; --ink: #0e0e0e; --muted: #8f897b; --line: #d3cab7; --soft: #e6decd;
+  --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { background: var(--paper); color: var(--ink); font: 300 12px/1.6 var(--mono); letter-spacing: .03em;
+  text-transform: lowercase; overflow: hidden; display: flex; flex-direction: column; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; letter-spacing: inherit; color: var(--ink); }
+input, select, textarea { text-transform: none; background: transparent; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 4px 0; }
+input:focus, select:focus, textarea:focus { outline: 0; border-bottom-color: var(--ink); }
+select { cursor: pointer; text-transform: lowercase; }
+.muted { color: var(--muted); }
+.pad { padding: 16px 20px; margin: 0; }
+.grow { flex: 1; }
+.r { text-align: right; }
+[hidden] { display: none !important; }
+button.text { background: none; border: 0; padding: 0; cursor: pointer; color: var(--muted); text-transform: lowercase; }
+button.text:hover { color: var(--ink); text-decoration: line-through; }
+button.send { justify-self: start; background: none; border: 0; border-bottom: 1px solid var(--ink); padding: 0; cursor: pointer; text-transform: lowercase; }
+button.send:hover { border-bottom-color: transparent; }
+button:disabled { opacity: .4; cursor: default; }
+.tick { display: inline-flex; gap: 6px; align-items: center; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.tick input { accent-color: var(--ink); margin: 0; }
+
+.bar { display: flex; gap: 22px; align-items: baseline; padding: 16px 20px 12px; border-bottom: 1px solid var(--line); flex: none; }
+.mark { font-weight: 400; letter-spacing: .3em; }
+.nums { color: var(--muted); }
+.nums b { color: var(--ink); font-weight: 400; }
+
+.gate { flex: 1; display: grid; place-content: center; }
+.gate form { display: grid; gap: 10px; width: 34ch; }
+.gate .status { width: 34ch; min-height: 1.6em; color: var(--muted); }
+
+.app { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr); }
+.list { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--line); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; padding: 10px 20px; border-bottom: 1px solid var(--line); }
+.filters #q { width: 24ch; }
+.scroll { flex: 1; min-height: 0; overflow: auto; }
+table { width: 100%; border-collapse: collapse; }
+th { position: sticky; top: 0; background: var(--paper); font-weight: 400; color: var(--muted); text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 7px 10px; border-bottom: 1px solid var(--soft); white-space: nowrap; max-width: 26ch; overflow: hidden; text-overflow: ellipsis; }
+th:first-child, td:first-child { padding-left: 20px; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--soft); }
+tbody tr.on { background: var(--ink); color: var(--paper); }
+td.email { text-transform: none; }
+
+.detail { min-height: 0; overflow: auto; padding: 18px 22px 40px; }
+.detail h2 { font: 400 14px/1.4 var(--mono); margin: 0 0 4px; text-transform: none; word-break: break-all; }
+.detail h3 { font: inherit; color: var(--muted); margin: 22px 0 6px; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+.fields { display: grid; grid-template-columns: 9ch 1fr; gap: 8px 12px; align-items: center; margin-top: 14px; }
+.fields label { color: var(--muted); }
+.fields input, .fields select { width: 100%; }
+.row { display: flex; gap: 16px; align-items: center; margin-top: 12px; }
+.log { margin: 0; padding: 0; list-style: none; }
+.log li { display: grid; grid-template-columns: 17ch 1fr; gap: 10px; padding: 3px 0; }
+.log li span:first-child { color: var(--muted); }
+.note-body { white-space: pre-wrap; text-transform: none; }
+textarea { width: 100%; height: 64px; resize: vertical; }
+.foot-status { position: fixed; right: 20px; bottom: 10px; margin: 0; color: var(--muted); font-size: 11px; }

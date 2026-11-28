@@ -1,0 +1,50 @@
+# Builds the Claire Tian CRM mac app on GitHub's Mac machines, so it can be made from a Windows PC.
+# - every pull request that touches the app or the crm screen: the zip is attached to the run ("Artifacts")
+# - every merge to main that touches them: also published as a release, downloadable without signing in at
+#   https://github.com/Logankenney/Claire-Tian/releases/latest/download/Claire-Tian-CRM-mac.zip
+# See mac/README.md for sending it to a MacBook and opening it the first time.
+name: mac app
+on:
+  pull_request:
+    paths: [mac/**, crm.html, crm.css, crm.js, auth.js, .github/workflows/mac-app.yml]
+  push:
+    branches: [main]
+    paths: [mac/**, crm.html, crm.css, crm.js, auth.js, .github/workflows/mac-app.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: build
+        working-directory: mac
+        env:
+          VERSION: 1.0.${{ github.run_number }}
+          BUILD: ${{ github.run_number }}
+        run: ./build.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Claire-Tian-CRM-mac-1.0.${{ github.run_number }}
+          path: mac/dist/Claire-Tian-CRM-mac.zip
+          retention-days: 30
+  release:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: Claire-Tian-CRM-mac-1.0.${{ github.run_number }}
+      - name: publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: crm-v1.0.${{ github.run_number }}
+        run: |
+          gh release create "$TAG" Claire-Tian-CRM-mac.zip --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --latest \
+            --title "claire tian crm $TAG" \
+            --notes "Mac app for the Claire Tian CRM (Apple silicon and Intel, macOS 12 or later). Not notarised: see mac/README.md for the first open."

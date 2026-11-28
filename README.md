@@ -23,6 +23,9 @@ A plain static site served by GitHub Pages at https://www.claire-tian.com. There
 | `legal.html` | The full legal and privacy page (privacy notice and terms of use). Reached only from the link on `privacy.html`: not in the menu or footer, `noindex` |
 | `analytics/` | The Supabase side: `schema.sql` (table and `record_hit`), `weekly.sql` (`weekly_report_data`), `hit/index.ts` (the edge function), `ip.sql` (ip addresses, country and network, `weekly_access_data`, the ML visitor code) |
 | `tools/weekly_report.py` | Writes the Friday site report (status board, issues with sub-tasks, priority emails, agent processes, traffic, visitor access by ip address, cookies register check, SEO, competition) from `weekly_report_data` + `weekly_access_data` JSON |
+| `account.html`, `account.js`, `auth.js` | "join" (bottom of every page): sign in with an email link or code, optional marketing tick box, delete my account. See `crm/README.md` |
+| `crm.html`, `crm.css`, `crm.js`, `crm/` | The CRM for Claire and Logan (not linked, `noindex`): members, stages, access levels, consents, notes, pages seen, CSV export. See `crm/README.md` |
+| `mac/` | The Claire Tian CRM Mac app, built on GitHub's Mac machines (`.github/workflows/mac-app.yml`). See `mac/README.md` |
 | `docs/cookies-register.json` | The cookies register: every cookie and browser storage item the site sets and every outside service a page load reaches; the weekly report flags anything in the code that is not listed |
 
 To preview, run `python3 -m http.server` in this folder and open http://localhost:8000.
