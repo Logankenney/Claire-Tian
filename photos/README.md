@@ -1,9 +1,12 @@
 # photos
 
 Drop photographs in this folder, then run `python3 tools/photos.py` from the repo folder (or ask Claude to). It
-makes a small WebP copy of each new photo (at most 1400 pixels on the long side), moves the original to
-`photos/originals/`, and rewrites `photos.json`, the list the pages read. A photo that is not in `photos.json`
-does not show.
+makes a high-resolution WebP copy of each new photo (at most 2400 pixels on the long side, never larger than the
+original), lighter copies 400, 600, 800, 1000 and 1200 pixels wide in `photos/w400/` to `photos/w1200/`, moves the
+original to `photos/originals/`, and rewrites `photos.json` (the list the pages read) and `photos/sizes.json` (each
+photo's size and which lighter copies it has). The browser picks the lightest copy that is sharp on the screen in
+use; a high-density screen or a photo's own page gets the high-resolution one. A photo that is not in `photos.json`
+does not show. To redo every copy from the originals, run `python3 tools/photos.py --rebuild`.
 
 - Use `.jpg`, `.jpeg`, `.png` or `.webp`. Any size; the script shrinks it.
 - Every frame on the site is portrait (2 by 3). A landscape or square photo is cropped to its middle, so portrait originals look best.

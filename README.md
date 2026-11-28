@@ -13,9 +13,9 @@ A plain static site served by GitHub Pages at https://www.claire-tian.com. There
 | `contact.html` | The contact address and the "i have an idea" box |
 | `styles.css` | All styling: light, black and white, lowercase |
 | `site.js` | Loads the photos listed in `photos.json` in a new random order on each page load, sideways scrolling |
-| `photos/` | The photographs, as small WebP copies; originals in `photos/originals/` (see `photos/README.md`) |
+| `photos/` | The photographs, as high-resolution WebP copies with lighter copies in `photos/w400/` to `photos/w1200/` for the browser to pick from; originals in `photos/originals/` (see `photos/README.md`) |
 | `photos.json` | The list of photos the pages show, written by `tools/photos.py` |
-| `tools/photos.py` | Makes WebP copies of new photos and rewrites `photos.json` |
+| `tools/photos.py` | Makes the WebP copies of new photos and rewrites `photos.json` and `photos/sizes.json` |
 | `booking.js` | The contact address (`CONTACT_EMAIL`, one line) and the idea box |
 | `CNAME` | The domain GitHub Pages serves |
 | `stats.js` | The visitor log: sends each page view, time on page, sideways scroll and clicks (photos, ig, send) to the Supabase function `hit`. No cookies; the server keeps each visitor's ip address (deleted after 400 days). Browser storage is listed in `docs/cookies-register.json` |
