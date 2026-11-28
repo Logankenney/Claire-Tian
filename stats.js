@@ -1,5 +1,5 @@
-// visitor log. counts visits so claire can see what people look at. no cookies, nothing stored on the visitor's
-// device, no ip addresses kept (the server turns them into a code that changes every day). see privacy.html.
+// visitor log. counts visits so claire can see what people look at. no cookies. the server ("hit" function) keeps the
+// visitor's ip address with each record (deleted after 400 days). browser storage: docs/cookies-register.json. see legal.html.
 // visit any page with ?notrack to stop counting this browser (for logan and claire), ?track to start again.
 (() => {
   const END = 'https://sunvqcispixmiapylcuo.supabase.co/functions/v1/hit';
