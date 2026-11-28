@@ -18,6 +18,7 @@ A plain static site served by GitHub Pages at https://www.claire-tian.com. There
 | `tools/photos.py` | Makes WebP copies of new photos and rewrites `photos.json` |
 | `booking.js` | The contact address (`CONTACT_EMAIL`, one line) and the idea box |
 | `CNAME` | The domain GitHub Pages serves |
+| `favicon.ico`, `favicon.svg`, `apple-touch-icon.png` | The tab and home-screen icon: an empty 2 by 3 frame on paper, like a photograph not yet added. Linked from every page's head |
 | `stats.js` | The visitor log: sends each page view, time on page, sideways scroll and clicks (photos, ig, send) to the Supabase function `hit`. No cookies; the server keeps each visitor's ip address (deleted after 400 days). Browser storage is listed in `docs/cookies-register.json` |
 | `privacy.html` | One line on the visitor log and a "privacy" link to `legal.html`; linked as "privacy" under the footer (bottom left on phones) |
 | `legal.html` | The full legal and privacy page (privacy notice and terms of use). Reached only from the link on `privacy.html`: not in the menu or footer, `noindex` |
