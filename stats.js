@@ -1,6 +1,8 @@
 // visitor log. counts visits so claire can see what people look at. no cookies. the server ("hit" function) keeps the
 // visitor's ip address with each record (deleted after 400 days). browser storage: docs/cookies-register.json. see legal.html.
 // visit any page with ?notrack to stop counting this browser (for logan and claire), ?track to start again.
+// when the visitor has joined and is signed in (auth.js), each counted page view is also added to their account
+// (link_visit, crm/schema.sql), so the crm shows what members look at. signed-out visitors are not linked to anyone.
 (() => {
   const END = 'https://sunvqcispixmiapylcuo.supabase.co/functions/v1/hit';
   const q = new URLSearchParams(location.search);
@@ -35,6 +37,7 @@
     send({ kind: 'view', load: nav ? Math.round(nav.loadEventEnd || nav.domContentLoadedEventEnd) : '' });
   };
   if (document.readyState === 'complete') setTimeout(view, 0); else addEventListener('load', () => setTimeout(view, 0));
+  if (window.ctAuth && ctAuth.signedIn()) setTimeout(() => ctAuth.rpc('link_visit', { p_session: base.sid, p_page: page }).catch(() => {}), 1500);
 
   // how far the sideways strip was scrolled, in percent
   let scroll = 0;

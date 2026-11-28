@@ -189,3 +189,21 @@ button.send:hover { border-bottom-color: transparent; }
 }
 @media (max-height: 520px) { .sheet, .sheet.contact { overflow-y: auto; justify-content: flex-start; } }   /* a phone on its side still reaches "send" */
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* join / account (account.html): the contact page's column, an email line instead of a box */
+input[type=email], input#code {
+  font: inherit; letter-spacing: inherit; text-transform: none; color: var(--ink); background: transparent;
+  border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 6px 0; width: 100%;
+}
+input#code { letter-spacing: .4em; }
+input[type=email]:focus, input#code:focus { outline: 0; border-bottom-color: var(--ink); }
+.tick { display: flex; gap: 8px; align-items: baseline; color: var(--muted); cursor: pointer; margin-top: 6px; }
+.tick input { accent-color: var(--ink); margin: 0; transform: translateY(1px); }
+.account .small { font-size: 9px; color: var(--muted); margin: 4px 0 0; }
+.account .small a { border-bottom: 1px solid var(--muted); }
+.account p { margin: 0; }
+button.text { font: inherit; letter-spacing: inherit; text-transform: lowercase; color: var(--muted); background: none; border: 0; padding: 0; cursor: pointer; }
+button.text:hover { color: var(--ink); text-decoration: line-through; }
+form[hidden] { display: none; }
+.foot .acct { margin-left: 1.2em; }
+@media (max-width: 720px) { .foot .acct { margin-left: 14px; } }

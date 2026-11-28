@@ -168,6 +168,11 @@ def storage_checks():
             found[name] = (kind, js.name)
         for m in re.findall(r"document\.cookie\s*=\s*['\"`]?([A-Za-z0-9_\-]+)=", src):
             found[m] = ("cookie", js.name)
+        # a storage key kept in a constant (auth.js: const SLOT = 'ct-auth'; store.set(SLOT, ...))
+        if re.search(r"(localStorage|sessionStorage)\.setItem\(\s*[A-Za-z_]", src):
+            kind = "localStorage" if "localStorage.setItem" in src else "sessionStorage"
+            for name in re.findall(r"const\s+[A-Z_]+\s*=\s*['\"](ct-[a-z0-9\-]+)['\"]", src):
+                found.setdefault(name, (kind, js.name))
     known = {x["name"] for x in reg.get("storage", []) + reg.get("cookies", [])}
     unregistered = sorted(set(found) - known)
     rows = [(x["name"], x["type"], x["set_by"], x["purpose"], x["kept"], x["category"],

@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /crm.html
+Disallow: /account.html
 
 Sitemap: https://www.claire-tian.com/sitemap.xml
